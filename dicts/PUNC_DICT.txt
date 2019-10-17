@@ -1,0 +1,14 @@
+.|chấm
+,|phẩy
+;|chấm phẩy
+!|chấm than
+(|mở ngoặc
+)|đóng ngoặc
+?|chấm hỏi
+:|hai chấm
+...|ba chấm
+/|xược
+'|nháy đơn
+"|nháy kép
+“|nháy kép
+”|nháy kép
