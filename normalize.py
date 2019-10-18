@@ -134,16 +134,17 @@ def add_fulltext_for_tag(tagged_text):
         token_string = ' '.join(tokens)
         token_string = replace_NSWs(token_string)
         split_tag.attrs['fulltext'] = token_string
-    
-    for i, w_tag in  enumerate(soup.findChildren('w')):
+
+    for i, w_tag in enumerate(soup.findChildren('w')):
         token_string = w_tag.string
         token_string = replace_NSWs(token_string)
         w_tag['fulltext'] = token_string
 
     return soup
 
+
 def replace_NSWs(token_string):
-    # chuyển urle 
+    # chuyển urle
     token_string = re.sub(r'(?P<id>{}|{})'.format(email_regex, url_regex),
                           lambda x: URLE2words(x.group('id')), token_string)
     # chuyển ngày/tháng/năm
@@ -174,7 +175,7 @@ def replace_NSWs(token_string):
                           lambda x: NTEL2words(''.join(x.group('id').split())),
                           token_string)
     # chuyển phân số
-    token_string = re.sub(r'(?P<id>\d+( |)\/( |)\d+)', 
+    token_string = re.sub(r'(?P<id>\d+( |)\/( |)\d+)',
                           lambda x: NFRC2words(''.join(x.group('id').split())), token_string)
     # chuyển các trường hợp khác
     sub_tokens = token_string.split()
@@ -191,28 +192,29 @@ def replace_NSWs(token_string):
             # chuyển từ viết tắt
             sub_token = re.sub('(?P<id>({})+)'.format(lseq_charset),
                                lambda x: LABB2words(x.group('id')), sub_token)
-            
+
             # chuyển số
             sub_token = re.sub(
                 r'(?P<id>(\d*\.)*\d+)', lambda x: NNUM2words(''.join(x.group('id').split('.'))), sub_token)
             # chuyển punctuation
-            sub_token = re.sub(r'(?P<id>{})'.format(punc), lambda x: PUNC2words(x.group('id')), sub_token)
+            sub_token = re.sub(r'(?P<id>{})'.format(
+                punc), lambda x: PUNC2words(x.group('id')), sub_token)
 
             sub_tokens[i] = sub_token
     token_string = ' '.join(sub_tokens)
 
     return token_string
 
+
 def get_text_from_soup(soup):
     # soup = Soup()
     split_tags = soup.findAll('split')
-    # xóa các thẻ w trong thẻ split 
+    # xóa các thẻ w trong thẻ split
     for split_tag in split_tags:
         sub_w_tags = split_tag.findAll('w')
         for sub_w_tag in sub_w_tags:
             sub_w_tag.extract()
         split_tag.string = ''
-
 
     tags = soup.findAll(['split', 'w'])
     for tag in tags:
@@ -225,6 +227,7 @@ def get_text_from_soup(soup):
     text = ''.join(soup.strings)
     text = ' '.join(text.split())
     return text
+
 
 def normalize(text):
     list_tokens = split_token(text)

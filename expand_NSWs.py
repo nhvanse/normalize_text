@@ -8,7 +8,7 @@ from utils import load_dict
 
 LSEQ_DICT_PATH = './dicts/LSEQ_DICT.txt'
 EN2VI_DICT_PATH = './dicts/EN2VI_DICT.txt'
-ABB_DICT_PATH = './dicts/ABB_DICT_PATH.txt'
+ABB_DICT_PATH = './dicts/ABB_DICT.txt'
 PUNC_DICT_PATH = './dicts/PUNC_DICT.txt'
 CURRENCY_DICT_PATH = './dicts/CURRENCY_DICT.txt'
 UNIT_DICT_PATH = './dicts/UNIT_DICT.txt'
