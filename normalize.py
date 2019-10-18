@@ -168,7 +168,7 @@ def replace_NSWs(token_string):
     # chuyển số điện thoại
     token_string = re.sub(r'(?P<id> |^)(?P<id1>0(\d|\.){9,14})(?P<id2> |$)',
                           lambda x: x.group(
-                              'id') + NTEL2words(x.group('id')) + x.group('id2'),
+                              'id') + NTEL2words(x.group('id1')) + x.group('id2'),
                           token_string)
     # chuyển tỷ số
     token_string = re.sub(r'(?P<id>\d+( |)\-( |)\d+)$',
