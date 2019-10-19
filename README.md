@@ -1,2 +1,2 @@
-# NOMALIZE TEXT FOR TTS\n
+# NOMALIZE TEXT FOR TTS
 -update: config path and fix some errors
