@@ -7,8 +7,28 @@
 ?|chấm hỏi
 :|hai chấm
 ...|ba chấm
-/|xược
+/|xẹc
 '|nháy đơn
 "|nháy kép
 “|nháy kép
 ”|nháy kép
+*|sao
++|cộng
+-|trừ
+\|xược
+_|gạch dưới
+&|và
+%|phần trăm
+^|mũ
+$|đô la
+#|thăng
+@|a còng
+[|mở ngoặc vuông
+]|đóng ngoặc vuông
+{|mở ngoặc nhọn
+}|đóng ngoặc nhọn
+~|ngã
+`|huyền
+<|nhỏ hơn
+>|lớn hơn
+=|bằng

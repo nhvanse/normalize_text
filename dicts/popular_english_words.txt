@@ -47,7 +47,7 @@ login|lốc in
 london|luân đôn
 macbook|mác búc
 malaysia|ma lay si a
-messenger|mét xen giờ
+messenger|mét xen dờ
 messi|mét xi
 microsoft|mai cờ rô xốp
 mobile|mô bai

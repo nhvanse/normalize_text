@@ -1,18 +1,21 @@
 # encoding : utf-8
 import re
+import os.path
 from num2words import num2words
 from unicodedata import normalize
 from datetime import date
 
 from utils import load_dict
 
-LSEQ_DICT_PATH = './dicts/LSEQ_DICT.txt'
-EN2VI_DICT_PATH = './dicts/EN2VI_DICT.txt'
-ABB_DICT_PATH = './dicts/ABB_DICT.txt'
-PUNC_DICT_PATH = './dicts/PUNC_DICT.txt'
-CURRENCY_DICT_PATH = './dicts/CURRENCY_DICT.txt'
-UNIT_DICT_PATH = './dicts/UNIT_DICT.txt'
-VI_WORDS_PATH = './dicts/vietnamese_words.txt'
+CURDIR = os.path.dirname(__file__)
+
+LSEQ_DICT_PATH = os.path.join(CURDIR, 'dicts/LSEQ_DICT.txt')
+EN2VI_DICT_PATH = os.path.join(CURDIR, 'dicts/EN2VI_DICT.txt')
+ABB_DICT_PATH = os.path.join(CURDIR, 'dicts/ABB_DICT.txt')
+PUNC_DICT_PATH = os.path.join(CURDIR, 'dicts/PUNC_DICT.txt')
+CURRENCY_DICT_PATH = os.path.join(CURDIR, 'dicts/CURRENCY_DICT.txt')
+UNIT_DICT_PATH = os.path.join(CURDIR, 'dicts/UNIT_DICT.txt')
+VI_WORDS_PATH = os.path.join(CURDIR, 'dicts/vietnamese_words.txt')
 
 
 LSEQ_DICT = load_dict(LSEQ_DICT_PATH)
@@ -67,7 +70,7 @@ def NDAT2words(date_string):
         ystring = NNUM2words(y)
     else:
         ystring = NNUM2words(y//100*100)
-        if (y//100 % 10 == 0):
+        if ((y//100) % 10 == 0):
             ystring += " không trăm"
         if y % 100 < 10:
             ystring += " lẻ " + NNUM2words(y % 100)
@@ -154,7 +157,7 @@ def NRNG2words(range_string):
 
 def NPER2words(per_string):
     """30% hoặc 30-40%"""
-    per_string = re.sub(r'(?P<id>\d+)-(?P<id1>\d+)',
+    per_string = re.sub(r'(?P<id>\d+)\-(?P<id1>\d+)',
                         lambda x: x.group('id') + ' đến ' + x.group('id1'), per_string)
     per_string = re.sub(
         r'(?P<id>\d+)\%', lambda x: x.group('id')+' phần trăm', per_string)
@@ -195,11 +198,8 @@ def LABB2words(abb_string):
     """ĐHBKHN"""
     result = ''
     abb_string = abb_string.strip()
-    if abb_string in ABB_DICT:
-        result = ABB_DICT[abb_string].split(',')[0]
-    else:
-        result = LSEQ2words(abb_string)
-
+    result = ABB_DICT[abb_string].split(',')[0]
+    
     return result
 
 
@@ -215,13 +215,18 @@ def URLE2words(urle_string):
     urle_string = re.sub(r'.com', ' chấm com ', urle_string)
     urle_string = re.sub(r'.edu', ' chấm e đu ', urle_string)
     urle_string = re.sub(r'gmail', ' gờ meo ', urle_string)
+    urle_string = re.sub(r'outlook', ' ao lúc ', urle_string)
     urle_string = re.sub(r'@', ' a còng ', urle_string)
     urle_string = re.sub(r'(?P<id>{})'.format('\.|\,|\:|\/'), lambda x: ' ' + PUNC2words(x.group('id'))+ ' ', urle_string)
     urle_string = re.sub(r'(?P<id>\d)', lambda x: ' ' + NNUM2words(x.group('id'))+ ' ', urle_string)
     arr = urle_string.split()
     for i, word in enumerate(arr):
         if word not in list_vietnamese_words:
-            arr[i] = LSEQ2words(word)
+            # nếu đọc được theo tiếng Anh
+            if LWRD2words(word):
+                arr[i] = LWRD2words(word)
+            else:
+                arr[i] = LSEQ2words(word)
 
     result = ' '.join(arr)
     return result

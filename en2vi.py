@@ -1,15 +1,18 @@
 import pronouncing
 import re
+import os.path
 import time
 from tqdm import tqdm
 
 from utils import load_dict
 
-POPULAR_EN2VI_DICT_PATH = './dicts/popular_english_words.txt'
-CMUPHONE2VI_DICT_PATH = './dicts/cmu_phones.txt'
-EN2VI_DICT_PATH = './dicts/EN2VI_DICT.txt'
+CURDIR = os.path.dirname(__file__)
 
-en2vi_dict = load_dict(POPULAR_EN2VI_DICT_PATH)
+POPULAR_EN2VI_DICT_PATH = os.path.join(CURDIR,  'dicts/popular_english_words.txt')
+CMUPHONE2VI_DICT_PATH = os.path.join(CURDIR,  'dicts/cmu_phones.txt')
+EN2VI_DICT_PATH = os.path.join(CURDIR,  'dicts/EN2VI_DICT.txt')
+
+popular_en2vi_dict = load_dict(POPULAR_EN2VI_DICT_PATH)
 cmuphone2vi_dict = load_dict(CMUPHONE2VI_DICT_PATH)
 
 
@@ -164,8 +167,8 @@ def en2vi(en_word):
     """
     result = ''
     try:
-        if en_word in en2vi_dict:
-            result = en2vi_dict[en_word]
+        if en_word in popular_en2vi_dict:
+            result = popular_en2vi_dict[en_word]
         else:
             en_pronounce = pronouncing.phones_for_word(en_word)
             # 1 từ tiếng anh có thể có >= 1 cách phát âm
@@ -173,7 +176,7 @@ def en2vi(en_word):
             en_pronounce = en_pronounce[0]
             result = convert_by_rules(en_pronounce)
     except:
-        pass
+        result = None
 
     return result
 
@@ -181,7 +184,14 @@ def en2vi(en_word):
 if __name__ == "__main__":
     """Tạo từ điển phiên âm tiếng Việt cho các từ tiếng Anh"""
     t0 = time.time()
+    list_enwords = pronouncing.cmudict.words()
+    list_enwords.extend(popular_en2vi_dict.keys())
+    
     with open(EN2VI_DICT_PATH, 'w') as f:
-        for enw in tqdm(pronouncing.cmudict.words()):
-            f.write("{}|{}\n".format(enw, en2vi(enw)))
+        for enword in tqdm(list_enwords):
+            viword = en2vi(enword)
+            if viword:
+                # khác None thì ghi vào file
+                f.write("{}|{}\n".format(enword, viword))
+    
     print("Time: {} s".format(time.time()-t0))

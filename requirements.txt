@@ -1,0 +1,5 @@
+num2words
+beautifulsoup4
+lxml
+pronouncing
+tqdm
