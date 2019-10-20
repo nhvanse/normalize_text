@@ -52,9 +52,10 @@ def split_token(text):
                   lambda x:  x.group('id') + x.group('id1'), text)
 
     # chuyển số  về dạng chuẩn: 1 .000.000, 1. 000.000, 1  . 000. 000 => 1.000.000
-    text = re.sub(r'(?P<id>( |^)\d+)(\s+\.|\.\s+|\s+\.\s+)(?P<id1>\d)',
+    text = re.sub(r'(?P<id>( |^|\.)\d+)(\s+\.|\.\s+|\s+\.\s+)(?P<id1>\d)',
                   lambda x: x.group('id')+'.'+x.group('id1'), text)
-
+    text = re.sub(r'(?P<id>( |^|\.)\d+)(\s+\.|\.\s+|\s+\.\s+)(?P<id1>\d)',
+                  lambda x: x.group('id')+'.'+x.group('id1'), text)
     # 09 15 33 45 77 => 09.15.33.45.77, 035 164 4565 => 035.164.4565
     text = re.sub(r'(?P<id>\d+)\s+(?P<id1>\d+)( |$)',
                   lambda x: x.group('id')+'.'+x.group('id1')+' ', text)
@@ -176,7 +177,7 @@ def replace_NSWs(token_string):
                           lambda x: NTIME2words(x.group('id')),
                           token_string)
     # chuyển số điện thoại
-    token_string = re.sub(r'(?P<id> |^)(?P<id1>(0|\+\d{2})(\d|\.){9,14})(?P<id2> |$)',
+    token_string = re.sub(r'(?P<id> |^)(?P<id1>(0)(\d|\.){9,14})(?P<id2> |$)',
                           lambda x: x.group(
                               'id') + NTEL2words(x.group('id1')) + x.group('id2'),
                           token_string)
@@ -201,7 +202,6 @@ def replace_NSWs(token_string):
                 sub_tokens[i] = LSEQ2words(sub_tokens[i])
                 sub_tokens[i+1] = NDIG2words(sub_tokens[i+1])
                 continue
-
 
             # nếu có trong tiếng anh
             if LWRD2words(sub_token.lower()):
@@ -265,8 +265,10 @@ def normalize(text):
     soup = add_fulltext_for_tag(tagged_text)
     normalized_text = get_text_from_soup(soup)
     return normalized_text
+    print(tagged_text)
+    # print(list_tokens)
 
 ex_file = os.path.join(CURDIR, 'vidu.txt')
 text = open(ex_file).read()
+# text = '0357161414'
 print(normalize(text))
-

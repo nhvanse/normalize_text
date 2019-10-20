@@ -311,7 +311,7 @@ abracadabra|ap rô cơ đap rô
 abrade|ap rây
 abraded|ap rây đit
 abrades|ap rây
-abraham|ây bờ rơ ham
+abraham|a bờ ra ham
 abrahamian|ap rô hêm mi ơn
 abrahams|ây bờ rơ ham
 abrahamsen|ap rô ham xừn
@@ -981,7 +981,7 @@ adamina|o đo mi nơ
 adamkus|a đơm cơt
 adamo|o đo mâu 
 adamowicz|ơ đo mơ vich
-adams|a đơm
+adams|a đam
 adams'|a đơm
 adams's|a đơm di
 adamski|ơ đam xờ ki
@@ -2165,7 +2165,7 @@ airline's|e lai
 airliner|e lai  nơ
 airliner's|e lai  nơ
 airliners|e lai  nơ
-airlines|e lai 
+airlines|e lai
 airlines'|e lai 
 airlink|e ling
 airlinks|e ling
@@ -2244,7 +2244,7 @@ ajax|ây dac
 ajax's|ây dac xơ
 ajax's|ây dac xơ
 ajay|e dây 
-ajinomoto|ơ di nơ mâu tâu 
+ajinomoto|a di nô mô tô
 ajito|ơ di tâu 
 ajito|ơ di tâu 
 aka|o cơ
@@ -4088,7 +4088,7 @@ andress|on đờ ret
 andretti|an đờ re ti
 andretti's|an đờ re ti
 andreu|an đờ ru
-andrew|an đờ ru
+andrew|an đờ riu
 andrew's|an đờ ru
 andrews|an đờ ru
 andrews'|an đờ ru
@@ -4575,7 +4575,7 @@ anthologist|an tho lơ git
 anthologists|an tho lơ git
 anthology|an tho lơ di
 anthon|an thừn
-anthony|an thơ ni
+anthony|an thô ni
 anthony's|an thơ ni
 anthracite|an thờ rơ xai 
 anthrax|an thờ rac
@@ -8508,8 +8508,8 @@ bara|bo rơ
 barabar|be rơ bo
 barach|bơ roc
 barach|bơ roc
-barack|bo rơc
-barack|bo rơc
+barack|ba rắc
+barack|ba rắc
 baraff|bo rop
 baragi|bơ ro gi
 barahona|ba rơ hâu nơ
@@ -20264,7 +20264,7 @@ chandra|chan đờ rơ
 chandrika|chon đờ ri cơ
 chandrika|chon đờ ri cơ
 chandross|chan đờ rot
-chanel|sơ neo
+chanel|che nồ
 chaney|chên ni
 chang|chang
 chang-hsin|chong sin
@@ -20876,7 +20876,7 @@ chest|chet
 chestang|chet từng
 chested|chet tơt
 chested|chet tơt
-chester|chet tơ
+chester|chét xờ tơ
 chesterfield|chet tơ phiu
 chesterman|chet tơ mừn
 chesters|chet tơ
@@ -22292,7 +22292,7 @@ clerks'|cờ lơc
 clermont|cờ le mon
 cleva|cờ li vơ
 cleve|cờ lip
-cleveland|cờ li pồ lừn
+cleveland|cờ le vơ len
 cleveland's|cờ li pồ lừn
 clevelander|cờ li pồ lừn đơ
 clevelanders|cờ li pồ lừn đơ
@@ -22773,7 +22773,7 @@ coburn|câu bừn
 cobweb|cop guep
 cobwebs|cop guep
 coby|câu bi
-coca|câu cơ
+coca|cô ca
 coca-cola|câu cơ câu lo
 cocaine|câu kên
 cocanino|câu cơ ni nâu 
@@ -23050,7 +23050,7 @@ cokie|câu ki
 cokie's|câu ki
 coking|câu king
 cokley|coc cồ li
-cola|câu lơ
+cola|cô la
 cola's|câu lơ
 colab|câu lap
 colabella|câu lơ be lơ
@@ -23132,7 +23132,7 @@ coley|câu li
 colfer|côn phơ
 colford|côn phơt
 colgan|côn gừn
-colgate|côn gết
+colgate|côn gát
 colgate's|côn gết
 colgin|côn din
 colglazier|côn gờ lơ di ơ
@@ -26929,7 +26929,7 @@ cristiani|cờ rit ti o ni
 cristiani|cờ rit ti o ni
 cristiani's|cờ rit ti o ni
 cristiani's|cờ rit ti o ni
-cristiano|cờ rit ti o nâu 
+cristiano|cờ rít ti a nô
 cristina|cờ rit ti nơ
 cristo|cờ rit tâu 
 cristo's|cờ rit tâu
@@ -28999,9 +28999,9 @@ dazzo|đa dâu
 dbase|đi bây
 dc|đi xi
 ddt|đi đi ti
-de|đi
-de|đi
-de|đi
+de|đờ
+de|đờ
+de|đờ
 de-excite|đi ic xai 
 de-excites|đi ic xai 
 dea|đi
@@ -35647,7 +35647,7 @@ dusts|đơt
 dusty|đơt ti
 dusza|đơ sơ
 duszynski|đơ sin xờ ki
-dutch|đắch
+dutch|đớt
 dutcher|đơ chơ
 dutchman|đắch mừn
 duthie|đơ thi
@@ -39604,8 +39604,8 @@ euthanize|du thơ nai
 eutsey|dut xi
 eutsler|dut xờ lơ
 ev|ep
-eva|ây vơ
-eva|ây vơ
+eva|e va
+eva|e va
 eva's|ây vơ
 eva's|ây vơ
 evacuate|i vac dơ rết
@@ -44746,7 +44746,7 @@ frankino|phờ rang ki nâu
 frankish|phờ rang kit
 frankl|phờ rang cồ
 frankland|phờ rang cờ lừn
-franklin|phờ rang cờ lin
+franklin|phờ ranh cờ lin
 franklin's|phờ rang cờ lừn
 franklinite|phờ rang cờ li nai 
 franklinville|phờ rang cờ lin viu
@@ -46520,7 +46520,7 @@ garelick|ga ri lic
 gareth|ge rit
 garett|ga rit
 garey|ga ri
-garfield|go phiu
+garfield|ga phiu
 garfinkel|go phing cồ
 garfinkle|go phing cồ
 garfunkel|go phừng cồ
@@ -47451,7 +47451,7 @@ geordie|diu đi
 georg|gây o
 georgakis|do do cơt
 georgann|do dan
-george|do
+george|dóc
 george's|do dơ
 george's|do dơ
 georgene|do din
@@ -49647,7 +49647,7 @@ gozo|gâu dâu
 gozo's|gâu dâu
 gozofsky|gơ dop xờ ki
 gps|gi pi et
-grab|gờ rap
+grab|gờ ráp
 grabau|gờ ra bao  
 grabbe|gờ rap
 grabbed|gờ rap
@@ -50799,7 +50799,7 @@ grovel|gờ ro vồ
 groveling|gờ ro vơ ling
 groveling|gờ ro vơ ling
 groveman|gờ râu vờ mừn
-grover|gờ râu vơ
+grover|gờ rô vơ
 grover's|gờ râu vơ
 grovers|gờ râu vơ
 groves|gờ râu
@@ -51044,7 +51044,7 @@ gubernatorial|guờ bơ nơ to ri ồ
 gubler|gờ du bơ lơ
 gubler|gờ du bơ lơ
 gubser|gơp xơ
-gucci|guờ chi
+gucci|gu chì
 gucciardo|guờ cho đâu 
 guccio|guờ chi âu 
 guccione|guờ cờ châu ni
@@ -52794,7 +52794,7 @@ hardigree|ho đic ri
 hardiman|ho đi mừn
 hardimon|ho đi mon
 hardin|ho đin
-harding|ho đing
+harding|ha đing
 harding's|ho đing
 hardinger|ho đi ngơ
 hardison|ho đi xừn
@@ -53027,7 +53027,7 @@ harrisburgh|ha rit bơc
 harrisburgh's|ha rit bơc
 harrisburgh's|ha rit bơc
 harrises|ha ri xi
-harrison|he ri xừn
+harrison|ha ri xơn
 harrison's|he ri xừn
 harriss|ha rit
 harrity|ha ri ti
@@ -53041,7 +53041,7 @@ harroun|hơ run
 harrow|ha râu 
 harrower|ha râu guơ 
 harrowing|he râu ing
-harry|he ri
+harry|ha ri
 harry's|he ri
 harryman|ha ri mừn
 harsch|ho
@@ -54727,7 +54727,7 @@ hermanson|hơ mừn xừn
 hermaphrodite|hơ map rô đai 
 hermaphroditic|hơ map rô đi tic
 hermenio|hơ me ni âu 
-hermes|hơ mi
+hermes|hơ mẹc
 hermetically|hơ me ti cơ li
 hermetically|hơ me ti cơ li
 hermia|hơ mi ơ
@@ -55181,7 +55181,7 @@ highfill|hai  phiu
 highflier|hai  phờ lai  ơ
 highfliers|hai  phờ lai  ơ
 highflying|hai  phờ lai  ing
-highland|hai  lừn
+highland|hai len
 highlander|hai  lan đơ
 highlanders|hai  lan đơ
 highlands|hai  lừn
@@ -61644,7 +61644,7 @@ jackpots|dac pot
 jackrabbit|dac ra bơt
 jacks|dac
 jacksdeit|dac xờ đi ơt
-jackson|dac xừn
+jackson|dắc sơn
 jackson's|dac xừn
 jacksonian|dac xâu ni ơn
 jacksonians|dac xâu ni ơn
@@ -62176,7 +62176,7 @@ jefferies'|de phơ ri
 jefferies's|dep ri di
 jefferis|de phơ rit
 jeffers|de phơ
-jefferson|de phơ xừn
+jefferson|de phơ sơn
 jefferson's|de phơ xừn
 jeffersonian|de phơ xâu ni ơn
 jeffersonians|de phơ xâu ni ơn
@@ -62640,7 +62640,7 @@ johansen|dâu han xừn
 johanson|dâu han xừn
 johansson|dâu hon xừn
 johansson|dâu hon xừn
-john|don
+john|dôn
 john's|don
 johnathan|do nơ thừn
 johnathan's|do nơ thừn
@@ -68922,8 +68922,8 @@ lavetta|lo ve tơ
 lavette|lơ vet
 lavey|lây vi
 lavi|lây vi
-lavie|lây vi
-lavie|lây vi
+lavie|la vi
+lavie|la vi
 lavigne|lơ vin
 lavin|la vin
 lavina|lo vi nơ
@@ -70789,7 +70789,7 @@ linchpin|lin chờ pin
 lincicome|lin xi câu
 linck|ling
 lincks|ling
-lincoln|ling cừn
+lincoln|lin côn
 lincoln's|ling cừn
 lincolns|ling cừn
 lincolnshire|ling cừn si
@@ -70992,7 +70992,7 @@ liomine|liu mai
 lion|lai  ơn
 lion's|lai  ơn
 lionberger|lai  ơn bơ gơ
-lionel|lai  ơ nồ
+lionel|li ô neo
 lionetti|liu ne ti
 lionetti|liu ne ti
 lionheart|lai  ơn hot
@@ -72072,7 +72072,7 @@ lotspeich|lot xờ pai
 lott|lot
 lott's|lot
 lotta|lo tơ
-lotte|lot
+lotte|lót te
 lotter|lo tơ
 lotteries|lo tơ ri
 lottery|lo tơ ri
@@ -72128,8 +72128,8 @@ loughry|lao  ri
 louie|lu i
 louima|lu i mơ
 louima's|lu i mơ
-louis|lu it
-louis|lu it
+louis|lu i
+louis|lu i
 louis'|lu it
 louis'|lu it
 louis'|lu it
@@ -73338,8 +73338,8 @@ madia|mo đi ơ
 madigan|ma đi gừn
 madill|mo điu
 madis|ma đơt
-madison|ma đơ xừn
-madison|ma đơ xừn
+madison|ma đi sơn
+madison|ma đi sơn
 madison's|ma đơ xừn
 madison's|ma đơ xừn
 madkins|mat kin
@@ -75179,8 +75179,8 @@ martials|mo sồ
 martian|mo sừn
 martians|mo sừn
 martie|mo ti
-martin|mo từn
-martin|mo từn
+martin|mác tin
+martin|mác tin
 martin's|mo từn
 martina|mo ti nơ
 martindale|mo tin đây
@@ -76489,7 +76489,7 @@ mcdivett|mơ đi vơt
 mcdivitt|mơc đi vơt
 mcdole|mơc đâu
 mcdonagh|mơc đơ nơ
-mcdonald|mơc đo nồ
+mcdonald|mác đô nờ
 mcdonald's|mơc đo nồ
 mcdonalds|mơc đo nồ
 mcdonell|mơc đo nồ
@@ -76841,7 +76841,7 @@ mckimmey|mơ ki mi
 mckimmy|mơ ki mi
 mckiness|mơ ki nơt
 mckinlay|mơ kin li
-mckinley|mơ kin li
+mckinley|mác kin li
 mckinney|mơ ki ni
 mckinney's|mơ ki ni
 mckinnie|mơ ki ni
@@ -84512,7 +84512,7 @@ nissenbaum|ni xừn bao
 nisshin|ni sin
 nissho|ni sâu 
 nissim|ni xim
-nissin|ni xin
+nissin|ni sin
 nissley|nit li
 nist|nit
 nistler|nit tờ lơ
@@ -84575,7 +84575,7 @@ nixdorf's|nic xờ đo
 nixed|nic
 nixes|nic xi
 nixie|nic xi
-nixon|nic xừn
+nixon|níc xơn
 nixon's|nic xừn
 nixons|nic xừn
 nizar|nai  do
@@ -86642,7 +86642,7 @@ oilseeds|oi  lờ xit
 oilwell|oi  lờ gueo
 oily|oi  li
 ointment|oi  nờ tờ mừn
-oishi|âu i si
+oishi|oi si
 oj|âu dây 
 oja|âu dơ
 ojala|âu do lơ
@@ -87535,8 +87535,8 @@ oriola|o ri âu lơ
 oriole|o ri âu
 orioles|o ri ôn
 orioles'|o ri ôn
-orion|âu rai  ơn
-orion|âu rai  ơn
+orion|o ri on
+orion|o ri on
 orion's|âu rai  ơn
 orion's|âu rai  ơn
 oriordan|âu ri đừn
@@ -88842,7 +88842,7 @@ pacholski|pơ hôn xờ ki
 pachter|pac tơ
 pachysandra|pa chi xan đờ rơ
 paci|po chi
-pacific|pơ xi phic
+pacific|pa xi phíc
 pacific's|pơ xi phic
 pacifica|pơ xi phi cơ
 pacificare|pơ xi phi ce
@@ -89696,7 +89696,7 @@ parity|pe rơ ti
 parizeau|pe ri dâu 
 parizek|pơ ri dec
 parizo|po ri dâu 
-park|po
+park|pác
 park's|po
 parka|po cơ
 parkas|po cơ
@@ -90272,7 +90272,7 @@ patzer|pết dơ
 patzke|pat xờ ki
 paucity|po xơ ti
 paugh|po
-paul|pon
+paul|pau
 paul's|pon
 paula|po lơ
 paulding|pon đing
@@ -91064,9 +91064,9 @@ peppin|pe pin
 pepple|pe pồ
 peppler|pe pồ lơ
 peppy|pe pi
-pepsi|pep xi
+pepsi|pép xi
 pepsi's|pep xi
-pepsico|pep xi câu 
+pepsico|pép xi cô
 pepsico's|pep xi câu
 peptic|pep tic
 peptide|pep tai 
@@ -92045,8 +92045,8 @@ philippines'|phi lơ pin
 philippino|phi lơ pi nâu 
 philippoussis|phi lơ pu xơt
 philipps|phi lip
-philips|phi lơp
-philips|phi lơp
+philips|phi líp
+philips|phi líp
 philips'|phi lip
 philips's|phi lip xi
 philipson|phi lơp xừn
@@ -94134,7 +94134,7 @@ popelka|pơ peo cơ
 popes|pâu
 popeye|po pai  
 popeye's|po pai 
-popeyes|po pai 
+popeyes|pốp ai
 popham|po phơm
 popick|po pic
 popiel|po piu
@@ -94717,7 +94717,7 @@ practitioner|pờ rac ti sơ nơ
 practitioner|pờ rac ti sơ nơ
 practitioners|pờ rac ti sơ nơ
 practitioners|pờ rac ti sơ nơ
-prada|pờ ro đơ
+prada|pờ ra đa
 pradesh|pờ rô đet
 pradetto|pờ rô đe tâu 
 prado|pờ ro đâu 
@@ -97481,7 +97481,7 @@ quina's| quy nơ
 quinby| quyn bi
 quince| quyn
 quincey| quyn xi
-quincy| quyn xi
+quincy|quyn xi
 quincy's| quyn xi
 quindlen| quyn đờ lừn
 quine| quai 
@@ -102304,7 +102304,7 @@ riceville|rai  xờ viu
 rich|rich
 rich's|ri chi
 richa|ri chơ
-richard|ri chơt
+richard|ri chát
 richard's|ri chơt
 richards|ri chơt
 richards'|ri chơt
@@ -103709,8 +103709,8 @@ roorda|ru đơ
 roos|ru
 roosa|ru xơ
 roose|ru
-roosevelt|râu dơ veo
-roosevelt|râu dơ veo
+roosevelt|ru dơ ven
+roosevelt|ru dơ ven
 roosevelt's|râu dơ veo
 roosevelt's|râu dơ veo
 roosevelts|râu dơ veo
@@ -104816,7 +104816,7 @@ ruth-anne|ru than
 ruthann|ru than
 ruthenberg|rơ thừn bơc
 ruther|ru thơ
-rutherford|rơ thơ phơt
+rutherford|ru dơ pho
 ruthie|ru thi
 ruthless|rut lơt
 ruthlessly|rut lơt li
@@ -115208,7 +115208,7 @@ starboards|xờ to bơ
 starboards|xờ to bơ
 starbuck|xờ to bơc
 starbuck's|xờ to bơc
-starbucks|xờ to bơc
+starbucks|xờ ta bấc
 starcevich|xờ to xi vich
 starch|xờ to
 starched|xờ to
@@ -119867,7 +119867,7 @@ taxpaying|tac xờ pây ing
 tay|tây 
 tayler|tây lơ
 tayloe|tây lâu 
-taylor|tây lơ
+taylor|thây lơ
 taylor's|tây lơ
 taylors|tây lơ
 tayman|tây mừn
@@ -121224,7 +121224,7 @@ thoma|thâu mơ
 thoma|thâu mơ
 thoman|thâu mừn
 thomann|dâu mừn
-thomas|to mơt
+thomas|thô mát
 thomas'|to mơ xi
 thomas'|to mơ xi
 thomas's|to mơ xi
@@ -124746,7 +124746,7 @@ u.s.c.|du e xi
 uarco|du o câu 
 uart|du ot
 ubben|ơ bừn
-uber|du bơ
+uber|u bơ
 ubiquitous|du bic guy tơt
 ubiquity|du bic guy ti
 ubuntu|u bu tu
@@ -128894,7 +128894,7 @@ vs.|vơ xơ
 vsel|vi xeo
 vu|vu
 vue|vờ du
-vuitton|vu ton
+vuitton|vu từn
 vukelich|vơ ce li
 vukovar|vu cơ vo
 vukovich|vu cơ vich
@@ -129616,7 +129616,7 @@ warrantless|guo rừn tờ lơt
 warrants|guo rừn
 warranty|guo rừn ti
 warrell|guo reo
-warren|guo rừn
+warren|goa ren
 warren's|guo rừn
 warrens|guo rừn
 warrenton|guo rừn từn
@@ -134185,7 +134185,7 @@ zach|dac
 zachar|dơ co
 zachariah|da cơ rai  ơ
 zacharias|da cơ rai  ơt
-zachary|da cơ ri
+zachary|da cha ri
 zacher|da cơ
 zachery|da cơ ri
 zachi|do ki
@@ -135174,3 +135174,118 @@ i'll|ai guyu
 coffee|cóp phi
 some|xăm
 about|ơ bao
+mobifone|mô bi phôn
+viettel|việt theo
+vinaphone|vi na phôn
+vietnamobile|việt nam mô bai
+grab|gờ ráp
+uber|u bơ
+vinamilk|vi na miu
+vccorp|vi xi cọp
+vingroup|vin gờ rúp
+petrolimex|pê trô li mếch
+sabeco|sa bê cô
+masan|ma san
+fpt|ép pê tê
+vietcombank|việt com banh
+vietinbank|việt tin banh
+bidv|bi ai đi vi
+airlines|e lai
+nutifood|nu ti phút
+vietjet|việt dét
+mbbank|mờ bê bank
+habeco|ha bê cô
+png|pi en di
+novaland|nô va len
+traphaco|tra pha cô
+pvi|pê vê i
+ACB|a xê bê
+biti|bi tít
+acecook|a xe cúc
+oishi|oi si
+dutch|đớt
+lady|lây đi
+aquafina|a qua phi na
+lavie|la vi
+cocacola|cô ca cô la
+coca|cô ca
+cola|cô la
+orion|o ri on
+pepsi|pép xi
+highland|hai len
+everon|e ve ron
+ps|pê ét
+colgate|côn gát
+sunhouse|săn hau
+philips|phi líp
+goldhouse|gôn hau
+goviet|gâu việt
+jestar|dét xờ ta
+pacific|pa xi phíc
+vinhome|vin hôm
+ajinomoto|a di nô mô tô
+nissin|ni sin
+vinmart|vin mát
+lotte|lót te
+lotteria|lót te ri a
+kfc|ca ép xê
+popeyes|pốp ai
+rohto|rô tô
+kotobuki|cô tô bu ki
+pepsico|pép xi cô
+ministop|mi ni xờ tóp
+vinabico|vi na bi cô
+cholimex|chô li mếch
+louis|lu i
+vuitton|vu từn
+chanel|che nồ
+prada|pờ ra đa
+hermes|hơ mẹc
+burberry|bơ be ri
+gucci|gu chì
+starbucks|xờ ta bấc
+mcdonald|mác đô nờ
+lionel|li ô neo
+cristiano|cờ rít ti a nô
+paul|pau
+divid|đa vít
+anthony|an thô ni
+de|đờ
+gea|gê a
+harry|ha ri
+wiliam|guy li am
+grover|gờ rô vơ
+cleveland|cờ le vơ len
+henry|hen ri
+harrison|ha ri xơn
+zachary|da cha ri
+taylor|thây lơ
+warren|goa ren
+harding|ha đing
+franklin|phờ ranh cờ lin
+roosevelt|ru dơ ven
+abraham|a bờ ra ham
+lincoln|lin côn
+james|dêm
+garfield|ga phiu
+mckinley|mác kin li
+john|dôn
+kenedy|ke ne đi
+nixon|níc xơn
+richard|ri chát
+washingtơn|goa sinh tơn
+george|dóc
+barack|ba rắc
+andrew|an đờ riu
+jackson|dắc sơn
+adams|a đam
+eva|e va
+thomas|thô mát
+jefferson|de phơ sơn
+madison|ma đi sơn
+quincy|quyn xi
+martin|mác tin
+fillmore|phiu mo
+rutherford|ru dơ pho
+chester|chét xờ tơ
+park|pác

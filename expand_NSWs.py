@@ -121,12 +121,11 @@ def NMONT2words(mont_string):
 
 
 def NTEL2words(tel_string):
-    "093.156.2565"
+    "093.156.2565, +84357121314"
     tel_string = ''.join(tel_string.split('.'))
     result = ''
-    for digit in tel_string:
-        result += NNUM2words(digit) + ' '
-
+    result = re.sub('\+', 'cộng ', tel_string)
+    result = re.sub('(?P<id>\d)', lambda x: NNUM2words(x.group('id')) + ' ', result)
     return result
 
 

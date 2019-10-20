@@ -11,9 +11,20 @@ CURDIR = os.path.dirname(__file__)
 POPULAR_EN2VI_DICT_PATH = os.path.join(CURDIR,  'dicts/popular_english_words.txt')
 CMUPHONE2VI_DICT_PATH = os.path.join(CURDIR,  'dicts/cmu_phones.txt')
 EN2VI_DICT_PATH = os.path.join(CURDIR,  'dicts/EN2VI_DICT.txt')
+BRANCH_DICT_PATH = os.path.join(CURDIR,  'dicts/proper_name/BRANCH_DICT.txt')
+PERSON_DICT_PATH = os.path.join(CURDIR,  'dicts/proper_name/PERSON_DICT.txt')
 
-popular_en2vi_dict = load_dict(POPULAR_EN2VI_DICT_PATH)
+
 cmuphone2vi_dict = load_dict(CMUPHONE2VI_DICT_PATH)
+popular_en2vi_dict = load_dict(POPULAR_EN2VI_DICT_PATH)
+popular_branch_dict = load_dict(BRANCH_DICT_PATH)
+popular_person_dict = load_dict(PERSON_DICT_PATH)
+
+popular_en2vi_dict.update(popular_branch_dict)
+popular_en2vi_dict.update(popular_person_dict)
+
+list_enwords = pronouncing.cmudict.words()
+list_enwords.extend(popular_en2vi_dict.keys())
 
 
 def convert_by_rules(en_pronounce):
@@ -184,8 +195,6 @@ def en2vi(en_word):
 if __name__ == "__main__":
     """Tạo từ điển phiên âm tiếng Việt cho các từ tiếng Anh"""
     t0 = time.time()
-    list_enwords = pronouncing.cmudict.words()
-    list_enwords.extend(popular_en2vi_dict.keys())
     
     with open(EN2VI_DICT_PATH, 'w') as f:
         for enword in tqdm(list_enwords):
