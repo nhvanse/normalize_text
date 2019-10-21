@@ -30,8 +30,24 @@ list_vietnamese_words = f.read().split('\n')
 f.close()
 
 def NNUM2words(num_string):
-    return num2words(float(num_string), lang='vi')
+    arr = num_string.split(',')
+    if len(arr) == 1:
+        # số tự nhiên hoặc số thực ngăn bởi dấu chấm
+        return num2words(float(num_string), lang='vi')
+    elif len(arr) == 2:
+        # số thực có phần thập phân ngăn bởi dấu phẩy
+        return num2words(int(arr[0]), lang='vi') + ' phẩy ' + NDIG2words(arr[1])
+    else:
+        return ' '
 
+
+def NDIG2words(dig_string):
+    "3925"
+    result = ''
+    for digit in dig_string:
+        result += num2words(int(digit), lang='vi') + ' '
+
+    return result
 
 def NTIME2words(time_string):
     try:
@@ -129,14 +145,6 @@ def NTEL2words(tel_string):
     return result
 
 
-def NDIG2words(dig_string):
-    "3925"
-    result = ''
-    for digit in dig_string:
-        result += NNUM2words(digit) + ' '
-
-    return result
-
 
 def NSCORE2words(score_string):
     """tỷ số `2-3`"""
@@ -161,7 +169,7 @@ def NPER2words(per_string):
     per_string = re.sub(
         r'(?P<id>\d+)\%', lambda x: x.group('id')+' phần trăm', per_string)
     per_string = re.sub(
-        r'(?P<id>\d+)', lambda x: NNUM2words(x.group('id')), per_string)
+        r'(?P<id>\d+(\,\d+)?)', lambda x: NNUM2words(x.group('id')), per_string)
 
     return per_string
 
@@ -240,3 +248,4 @@ def MONY2words(money_string):
     money_string = re.sub(r'(?P<id>{})'.format('VNĐ|\$|S\$'), lambda x: CURRENCY_DICT[x.group('id')], money_string)
     
     return money_string
+

@@ -19,6 +19,12 @@ def split_token(text):
     """
         Tách token từ text, trả về mảng các token.
     """
+    # chuyển \n thành chấm nếu cuối câu không chấm
+    text = re.sub(r'\n', '.', text)
+    text = re.sub(r'\.\.\.|\.\.|\. \.', '.', text)
+    text = re.sub(r'\.\.\.|\.\.|\. \.', '.', text)
+
+    # tách token
     list_tokens = text.split()
     for i, token in enumerate(list_tokens):
         # nếu là email hoặc url thì bỏ qua
@@ -74,6 +80,15 @@ def split_token(text):
     text = re.sub(r'(?P<id>\d+)(\s+\:|\:\s+|\s+\:\s+)(?P<id1>\d+)',
                   lambda x: x.group('id')+':'+x.group('id1'), text)
     
+    # loại bỏ các dấu không cần đọc
+    text = re.sub(r'\(|\)|\'|\"|\[|\]|\{|\}|\“|\”|\|', ' ', text)
+    # chỉnh sửa một số âm , ví dụ òa thành oà
+    change_phone_dict = {'òa':'oà', 'oá':'oá', 'ọa':'oạ', 'õa':'oã', 'ỏa':'oả', \
+                         'òe':'oè', 'óe':'oé', 'ọe':'oẹ', 'õe':'oẽ', 'ỏe':'oẻ', \
+                         'ùy':'uỳ', 'úy':'uý', 'ụy':'uỵ', 'ũy':'uỹ', 'ủy': 'uỷ'}
+    text = re.sub(r'(?P<id>{})'.format('|'.join(change_phone_dict.keys())), 
+                lambda x: change_phone_dict[x.group('id')], text)
+
     list_tokens = text.split()
 
     return list_tokens
@@ -194,17 +209,22 @@ def replace_NSWs(token_string):
                           lambda x: NFRC2words(''.join(x.group('id').split())), token_string)
     # chuyển các trường hợp khác
     sub_tokens = token_string.split()
+    
     for i, sub_token in enumerate(sub_tokens):
         if sub_token.lower() not in list_vietnamese_words:
             # chuyển từ mã gồm chuỗi chữ cái và số
-            if (i < len(sub_tokens)-1) and re.match(r'^({})+$'.format(lseq_charset), sub_tokens[i]) \
-            and re.match(r'\d+', sub_tokens[i+1]):
-                sub_tokens[i] = LSEQ2words(sub_tokens[i])
-                sub_tokens[i+1] = NDIG2words(sub_tokens[i+1])
+            if (i < len(sub_tokens)-1) and re.match(r'^({})+$'.format(lseq_charset), sub_tokens[i].upper()) \
+                                       and re.match(r'\d+', sub_tokens[i+1]):
+                sub_token = LSEQ2words(sub_tokens[i])
+                sub_tokens[i] = sub_token + ' ' + NDIG2words(sub_tokens[i+1])
+                sub_tokens[i+1] = ''
                 continue
-
-            # nếu có trong tiếng anh
-            if LWRD2words(sub_token.lower()):
+            elif len(sub_token) == 1 and sub_token.upper() in LSEQ_DICT.keys():
+                # nếu chỉ một chữ cái riêng biệt
+                sub_token = LSEQ2words(sub_token)
+            
+            elif LWRD2words(sub_token.lower()):
+                # nếu có trong tiếng anh
                 sub_token = LWRD2words(sub_token.lower())
             elif sub_token in ABB_DICT:
                 # chuyển từ viết tắt
@@ -265,10 +285,10 @@ def normalize(text):
     soup = add_fulltext_for_tag(tagged_text)
     normalized_text = get_text_from_soup(soup)
     return normalized_text
-    print(tagged_text)
-    # print(list_tokens)
-
+    
+from time import time
+t0 = time()
 ex_file = os.path.join(CURDIR, 'vidu.txt')
 text = open(ex_file).read()
-# text = '0357161414'
 print(normalize(text))
+print(time()-t0)

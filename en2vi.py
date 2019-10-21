@@ -169,6 +169,15 @@ def convert_by_rules(en_pronounce):
     temp = re.sub(r' (?P<id>{}) '.format(phones2),
                   lambda x: ' ' + x.group('id')+'ờ ', temp)
 
+    # thêm dấu
+    add_prosodic_dict = {
+        'at':'át', 'ăt':'ắt', 'ât':'ất', 'et':'ét', 'êt':'ết', 'it':'ít', 'ot':'ót', 'ôt':'ốt', 'ơt':'ớt', 'ut':'út', 'ưt':'ứt', 'yt':'ýt',
+        'ac':'ác', 'ăc':'ắc', 'âc':'ấc', 'ec':'éc', 'êc':'ếc', 'ic':'íc', 'oc':'óc', 'ôc':'ốc', 'ơc':'ớc', 'uc':'úc', 'ưc':'ức', 'yc':'ýc',
+        'ap':'áp', 'ăp':'ắp', 'âp':'ấp', 'ep':'ép', 'êp':'ếp', 'ip':'íp', 'op':'óp', 'ôp':'ốp', 'ơp':'ớp', 'up':'úp', 'ưp':'ứp', 'yp':'ýp',
+        
+    }
+    temp = re.sub(r'(?P<id>{})'.format('|'.join(add_prosodic_dict.keys())), lambda x: add_prosodic_dict[x.group('id')], temp)
+
     return temp
 
 
