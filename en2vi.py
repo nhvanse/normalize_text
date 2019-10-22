@@ -4,7 +4,7 @@ import os.path
 import time
 from tqdm import tqdm
 
-from normalize_text.utils import load_dict
+from .utils import load_dict
 
 CURDIR = os.path.dirname(__file__)
 
