@@ -160,18 +160,18 @@ def add_fulltext_for_tag(tagged_text):
         for w_tag in w_tags:
             tokens.append(w_tag.string)
         token_string = ' '.join(tokens)
-        # try:
-        token_string = replace_NSWs(token_string)
-        # except:
-        # token_string = ' '
+        try:
+            token_string = replace_NSWs(token_string)
+        except:
+            token_string = ' '
         split_tag.attrs['fulltext'] = token_string
 
     for i, w_tag in enumerate(soup.findAll('w')):
         token_string = w_tag.string
-        # try:
-        token_string = replace_NSWs(token_string)
-        # except:
-        #     token_string = ' '
+        try:
+            token_string = replace_NSWs(token_string)
+        except:
+            token_string = ' '
         w_tag['fulltext'] = token_string
 
     return soup
