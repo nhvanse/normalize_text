@@ -5,7 +5,7 @@ from num2words import num2words
 from unicodedata import normalize
 from datetime import date
 
-from utils import load_dict
+from normalize_text.utils import load_dict
 
 CURDIR = os.path.dirname(__file__)
 
