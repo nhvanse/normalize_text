@@ -89,7 +89,7 @@ def split_token(text):
     # loại bỏ các dấu không cần đọc
     text = re.sub(r'\(|\)|\'|\"|\[|\]|\{|\}|\“|\”|\|', ' ', text)
     # chỉnh sửa một số âm , ví dụ òa thành oà
-    change_phone_dict = {'òa': 'oà', 'oá': 'oá', 'ọa': 'oạ', 'õa': 'oã', 'ỏa': 'oả',
+    change_phone_dict = {'òa': 'oà', 'óa': 'oá', 'ọa': 'oạ', 'õa': 'oã', 'ỏa': 'oả',
                          'òe': 'oè', 'óe': 'oé', 'ọe': 'oẹ', 'õe': 'oẽ', 'ỏe': 'oẻ',
                          'ùy': 'uỳ', 'úy': 'uý', 'ụy': 'uỵ', 'ũy': 'uỹ', 'ủy': 'uỷ'}
     text = re.sub(r'(?P<id>{})'.format('|'.join(change_phone_dict.keys())),
