@@ -29,14 +29,33 @@ f = open(VI_WORDS_PATH, 'r', encoding='utf-8')
 list_vietnamese_words = f.read().split('\n')
 f.close()
 
+currency_list = '\$|S \$|VNĐ'
+
+def decimal2words(number):
+    # đọc năm
+    numberstring = ""
+    number = int(number)
+    if number <= 1000 or number % 1000 == 0:
+        numberstring = num2words(number, lang='vi')
+    else:
+        numberstring = num2words(number//100*100, lang='vi')
+        if ((number//100) % 10 == 0):
+            numberstring += " không trăm"
+        if number % 100 < 10:
+            numberstring += " lẻ " + num2words(number % 100, lang='vi')
+        else:
+            numberstring += " " + num2words(number % 100, lang='vi')
+
+    return numberstring
+
 def NNUM2words(num_string):
-    arr = num_string.split(',')
+    arr = str(num_string).split(',')
     if len(arr) == 1:
-        # số tự nhiên hoặc số thực ngăn bởi dấu chấm
-        return num2words(float(num_string), lang='vi')
+        # số tự nhiên 
+        return decimal2words(float(num_string))
     elif len(arr) == 2:
         # số thực có phần thập phân ngăn bởi dấu phẩy
-        return num2words(int(arr[0]), lang='vi') + ' phẩy ' + NDIG2words(arr[1])
+        return decimal2words(int(arr[0])) + ' phẩy ' + NDIG2words(arr[1])
     else:
         return ' '
 
@@ -239,13 +258,9 @@ def URLE2words(urle_string):
     return result
 
 def MONY2words(money_string):
-    # tách đơn vị và số
-    money_string = re.sub(r'(?P<id>\d)(?P<id1>{})'.format('VNĐ|\$|S\$'), lambda x: x.group('id')+ ' ' + x.group('id1'), money_string)
+    # tách đơn vị và số, đọc đơn vị
+    money_string = re.sub(r'(?P<id>\d)(?P<id1>{})'.format(''.join(currency_list.split())), lambda x: x.group('id')+ ' ' + CURRENCY_DICT[x.group('id1')], money_string)
     # đọc số 
-    money_string = re.sub(r'(?P<id>\d)\.', lambda x: x.group('id'), money_string)
-    money_string = re.sub(r'\,', lambda x: '.', money_string)
-    money_string = re.sub(r'(?P<id>(\w|\.)+)', lambda x: NNUM2words(x.group('id')), money_string)
-    money_string = re.sub(r'(?P<id>{})'.format('VNĐ|\$|S\$'), lambda x: CURRENCY_DICT[x.group('id')], money_string)
-    
+    money_string = re.sub(r'(?P<id>(\d+\.)*\d+(\,\d+)?)', lambda x: NNUM2words(''.join(x.group('id').split('.'))), money_string)
     return money_string
 
