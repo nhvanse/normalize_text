@@ -34,7 +34,7 @@ def split_token(text):
 
         # tách các từ bị dính các dấu .,;/()'"
         # "đã xong.Viện" => "đã xong . Viện", "HN(Số 36)" => "HN ( Số 36)"
-        split_punc = '\.|\,|\;|\/|\(|\)|\!|\?|\…'
+        split_punc = '\.|\,|\;|\/|\(|\)|\!|\?|\…|\:'
         token = re.sub(r'(?P<id>[{}])(?P<id1>{})(?P<id2>[{}])'.format(charset, split_punc, charset),
                        lambda x: x.group('id') + ' ' + x.group('id1') + ' ' + x.group('id2'), token)
         token = re.sub(r'(?P<id>[{}]|\d+)(?P<id1>{})'.format(charset, split_punc),
@@ -292,6 +292,10 @@ def get_text_from_soup(soup):
 
     text = ''.join(soup.strings)
     text = ' '.join(text.split())
+    # xóa bớt các dấu câu liền nhau
+    split_punc = '\.|\,|\;|\/|\(|\)|\!|\?|\…'
+    text = re.sub(r'(?P<id>{}) {}'.format(split_punc, split_punc), lambda x: x.group('id'), text)
+    
     return text
 
 
