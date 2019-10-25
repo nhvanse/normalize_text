@@ -34,7 +34,7 @@ def split_token(text):
 
         # tách các từ bị dính các dấu .,;/()'"
         # "đã xong.Viện" => "đã xong . Viện", "HN(Số 36)" => "HN ( Số 36)"
-        split_punc = '\.|\,|\;|\/|\(|\)|\!|\?'
+        split_punc = '\.|\,|\;|\/|\(|\)|\!|\?|\…'
         token = re.sub(r'(?P<id>[{}])(?P<id1>{})(?P<id2>[{}])'.format(charset, split_punc, charset),
                        lambda x: x.group('id') + ' ' + x.group('id1') + ' ' + x.group('id2'), token)
         token = re.sub(r'(?P<id>[{}]|\d+)(?P<id1>{})'.format(charset, split_punc),
@@ -282,7 +282,7 @@ def get_text_from_soup(soup):
     # để lại một số punctuation
     tags = soup.findAll(['split', 'w'])
     for tag in tags:
-        if tag.string in ['.', ',', '?', ';', '!']:
+        if tag.string in ['.', ',', '?', ';', '!', '…']:
             pass
         elif re.match(r'{}'.format(punc), tag.string):
 
@@ -302,7 +302,6 @@ def normalize(text):
     soup = add_fulltext_for_tag(tagged_text)
     normalized_text = get_text_from_soup(soup)
     return normalized_text
-
 
 t0 = time()
 ex_file = os.path.join(CURDIR, 'vidu.txt')

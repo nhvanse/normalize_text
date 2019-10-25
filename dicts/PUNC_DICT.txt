@@ -32,3 +32,4 @@ $|đô la
 <|nhỏ hơn
 >|lớn hơn
 =|bằng
+…|ba chấm
