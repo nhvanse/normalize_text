@@ -1,6 +1,6 @@
 ABC|công ty truyền thông abc
 ADB|ngân hàng phát triển châu á
-ADN|and
+ADN|a đê en
 ANĐT|an ninh điều tra
 ATGT|an toàn giao thông
 ATM|máy rút tiền tự động
@@ -876,3 +876,4 @@ XX|xét xử
 YKVN|y khoa việt nam
 YTDP|y tế dự phòng
 YTế|y tế
+SEA|xi

@@ -4080,8 +4080,8 @@ andreotti|on đờ ri o ti
 andreotti|on đờ ri o ti
 andreozzi|on đờ ri ót xi
 andrepont|on đờ rây pôn
-andres|on đờ rây
-andres|on đờ rây
+andres|an đờ rét
+andres|an đờ rét
 andresen|an đờ ri xừn
 andreski|an đờ rét ki
 andress|on đờ rét
@@ -4735,7 +4735,7 @@ antler|an tờ lơ
 antlered|an tờ lớt
 antlers|an tờ lơ
 antley|an tờ li
-antoine|on tờ guon
+antoine|an toi ne
 antoinette|an tờ guơ  nét
 antol|on ton
 antolik|an tơ líc
@@ -8058,7 +8058,7 @@ baldwin|bon đờ guơ
 baldwin|bon đờ guơ
 baldwin's|bon đờ guơn
 baldyga|bon đi gơ
-bale|bây
+bale|bêu
 baleen|bơ lin
 baleful|bây lờ phồ
 balentine|bo len ti ni
@@ -38204,8 +38204,8 @@ englert|ing lớt
 englerth|ing lớt
 engles|i ngồ
 englewood|eng gồ gút
-english|ing líc
-english|ing líc
+english|inh lích
+english|inh lích
 englishman|ing gờ lít mừn
 englishmen|eng lít mừn
 englishwoman|ing gờ lít guờ mừn
@@ -46517,7 +46517,7 @@ gare|ge
 gareau|gơ râu 
 gared|ga rớt
 garelick|ga ri líc
-gareth|ge rít
+gareth|ga rét
 garett|ga rít
 garey|ga ri
 garfield|ga phiu
@@ -67658,7 +67658,7 @@ ladder|la đơ
 ladders|la đơ
 lade|lây
 ladehoff|la đơ hóp
-laden|lây đừn
+laden|la đen
 ladenburg|lây đừn bớc
 lader|lây đơ
 ladewig|la đu íc
@@ -72560,7 +72560,7 @@ luigi|lu i di
 luigi's|lu i di
 luigi's|lu i di
 luikart|lu cót
-luis|lu ít
+luis|lu i
 luisa|lu i dơ
 luisi|lu xi
 luiz|lu
@@ -78936,7 +78936,7 @@ mikael|mơ cây
 mikaela|mi cây lơ
 mikako|mi co câu 
 mikal|mi cồ
-mike|mai 
+mike|mai cơ
 mike's|mai 
 mikel|mi cồ
 mikell|mi cồ
@@ -91036,7 +91036,7 @@ peoria|pi o ri ơ
 peoria's|pi o ri ơ
 pep|pép
 pepcid|pép xít
-pepe|pe pi
+pepe|pê pê
 pepenadores|pe pe nơ đo re
 peper|pe pơ
 pepi|pe pi
@@ -92040,7 +92040,7 @@ philippe|phi li pây
 philippi|phi li pi
 philippic|phi li píc
 philippine|phi lơ pin
-philippines|phi lơ pin
+philippines|phi líp pin
 philippines'|phi lơ pin
 philippino|phi lơ pi nâu 
 philippoussis|phi lơ pu xớt
@@ -105674,7 +105674,7 @@ sanabria|xơ náp ri ơ
 sanada|xo no đơ
 sanborn|xan bo
 sanches|xon chét
-sanchez|xan che
+sanchez|san chét
 sanchez's|xan che di
 sancho|xon câu 
 sancia|xon chơ
@@ -117185,7 +117185,7 @@ styx|xờ tíc
 su|xu
 suard|xu o
 suard|xu o
-suarez|xờ guo re
+suarez|su ơ rét
 suasion|xờ guây dừn
 suata|xu o tơ
 suata's|xu o tơ
@@ -135083,6 +135083,7 @@ zyuganov's|dờ du go nóp
 zywicki|di guy ki
 acid|a xít
 amazon|a ma dôn
+and|en
 apple|ép pồ
 australia|ốt xờ trây li a
 barca|bác xa
@@ -135162,12 +135163,12 @@ york|doóc
 youtube|diu túp
 zealand|di lân
 on|on
-and|en
 learn|lơn
 you|diu
 vietnamese|việt nam mít
-philipines|phi líp pip
-english|ing líc
+philipines|phi líp pin
+philippines|phi líp pin
+english|inh lích
 barcelona|bác xê lô na
 i'm|am
 i'll|ai guyu
@@ -135251,7 +135252,7 @@ paul|pau
 divid|đa vít
 anthony|an thô ni
 de|đờ
-gea|gê a
+gea|ghê a
 harry|ha ri
 wiliam|guy li am
 grover|gờ rô vơ
@@ -135289,3 +135290,20 @@ fillmore|phiu mo
 rutherford|ru dơ pho
 chester|chét xờ tơ
 park|pác
+gareth|ga rét
+bale|bêu
+griezmann|gờ ri dơ man
+antoine|an toi ne
+luis|lu i
+suarez|su ơ rét
+neymar|nây ma
+riyard|ri dát
+mahrez|ma rét
+pepe|pê pê
+aubameyang|au bam mây dang
+ibrahimovic|i bờ ra hi mo víc
+sanchez|san chét
+modric|mo đờ rích
+andres|an đờ rét
+mike|mai cơ
+laden|la đen

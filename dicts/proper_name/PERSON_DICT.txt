@@ -7,7 +7,7 @@ paul|pau
 divid|đa vít
 anthony|an thô ni
 de|đờ
-gea|gê a
+gea|ghê a
 harry|ha ri
 donald|đô nan
 trump|trăm
@@ -47,3 +47,20 @@ fillmore|phiu mo
 rutherford|ru dơ pho
 chester|chét xờ tơ
 park|pác
+gareth|ga rét
+bale|bêu
+griezmann|gờ ri dơ man 
+antoine|an toi ne
+luis|lu i
+suarez|su ơ rét
+neymar|nây ma
+riyard|ri dát
+mahrez|ma rét
+pepe|pê pê
+aubameyang|au bam mây dang
+ibrahimovic|i bờ ra hi mo víc
+sanchez|san chét
+modric|mo đờ rích
+andres|an đờ rét
+mike|mai cơ
+laden|la đen

@@ -1,5 +1,6 @@
 acid|a xít
 amazon|a ma dôn
+and|en
 apple|ép pồ
 australia|ốt xờ trây li a
 barca|bác xa
@@ -83,8 +84,9 @@ and|en
 learn|lơn
 you|diu
 vietnamese|việt nam mít
-philipines|phi líp pip
-english|ing líc
+philipines|phi líp pin
+philippines|phi líp pin
+english|inh lích
 barcelona|bác xê lô na
 nobel|nô ben
 i'm|am

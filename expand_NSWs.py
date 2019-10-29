@@ -27,6 +27,7 @@ UNIT_DICT = load_dict(UNIT_DICT_PATH)
 
 f = open(VI_WORDS_PATH, 'r', encoding='utf-8')
 list_vietnamese_words = f.read().split('\n')
+vn_words_dict = dict.fromkeys(list_vietnamese_words, 0)
 f.close()
 
 currency_list = '\$|S \$|VNĐ'
@@ -207,7 +208,7 @@ def LWRD2words(word):
         result = EN2VI_DICT[word.lower()]
     except:
         # nếu word không có trong từ điển tiếng Anh
-        result = None
+        return None
 
     return result
 
@@ -264,3 +265,49 @@ def MONY2words(money_string):
     money_string = re.sub(r'(?P<id>(\d+\.)*\d+(\,\d+)?)', lambda x: NNUM2words(''.join(x.group('id').split('.'))), money_string)
     return money_string
 
+
+def latin_name2words(token):
+    from time import time
+    t0 = time()
+    # sửa một số âm tiết sang tiếng việt
+    phones1 = 'ai|ao|ây|oi|âu'
+    phones2 = 'p|c|t|ch|n|ng|m|ph|b|d|đ|g|h|x|s|th|v|gu|l|r'
+    phones3 = 'a|ă|e|i|o|ơ|ô|u|y'
+    phones4 = 'ai|ao|ây|oi|âu|a|ă|e|i|o|ơ|ô|u'
+    token = re.sub('(?P<id>{})(?P<id1>({})({}))'.format(phones3, phones2, phones3),
+            lambda x: x.group('id') + ' ' + x.group('id1'), token)
+    token = re.sub('(?P<id>{})(?P<id1>({})({}))'.format(phones3, phones2, phones3),
+            lambda x: x.group('id') + ' ' + x.group('id1'), token)
+    token = re.sub('yl', 'in', token)
+    token = re.sub('(?P<id>da|di|de|du|do)', lambda x: 'đ' + x.group('id')[1] , token)
+    token = re.sub('j|z', 'd', token)
+    token = re.sub('f', 'ph', token)
+    token = re.sub(r'd$', 't', token)
+    token = re.sub('(?P<id>ya|ye|yo|yu)', lambda x: 'd' + x.group('id')[1] , token)
+    token = re.sub('(?P<id>ka|ko|ku)', lambda x: 'c' + x.group('id')[1] , token)
+    token = re.sub('(?P<id>ci|ce)', lambda x: 'k' + x.group('id')[1] , token)
+    token = re.sub('al', 'an', token)
+    token = re.sub('el', 'eo', token)
+    token = re.sub('il', 'iu', token)
+    token = re.sub('ol', 'on', token)
+    token = re.sub('ul', 'un', token)
+    token = re.sub('ue', 'oe', token)
+    token = re.sub('et', 'ét', token)
+    token = re.sub('ic', 'ích', token)
+    token = re.sub('sh', 's', token)
+
+    i = 0
+    newtoken = ''
+    while i < len(token):
+        # so khớp từ dài đến ngắn  xem có từ nào không
+        # nếu có thì thay thế bởi phiên âm
+        for j in [5,4,3,2,1]:
+            if i+j<= len(token):
+                if j ==1 and token[i] not in ['a', 'e', 'i', 'o', 'u']:
+                    # nếu chỉ có 1 chữ cái không phải nguyên âm thì bỏ qua
+                    i+=1
+                elif token[i:i+j] in vn_words_dict:
+                    newtoken += token[i:i+j] + ' '
+                    i = i+j
+                    break
+    return newtoken

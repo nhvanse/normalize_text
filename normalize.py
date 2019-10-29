@@ -99,12 +99,14 @@ def split_token(text):
 
     return list_tokens
 
+def classify_NSWs(list_tokens):
+    print(list_tokens)
 
 def filter_candidate_NSWs(list_tokens):
     """gán thẻ w cho các token là NSW"""
     result = []
     for token in list_tokens:
-        if token.lower() not in list_vietnamese_words:
+        if token.lower() not in vn_words_dict:
             # token là NSW
             token = '<w>'+token+'</w>'
         else:
@@ -160,18 +162,18 @@ def add_fulltext_for_tag(tagged_text):
         for w_tag in w_tags:
             tokens.append(w_tag.string)
         token_string = ' '.join(tokens)
-        try:
-            token_string = replace_NSWs(token_string)
-        except:
-            token_string = ' '
+        # try:
+        token_string = replace_NSWs(token_string)
+        # except:
+            # token_string = ' '
         split_tag.attrs['fulltext'] = token_string
 
     for i, w_tag in enumerate(soup.findAll('w')):
         token_string = w_tag.string
-        try:
-            token_string = replace_NSWs(token_string)
-        except:
-            token_string = ' '
+        # try:
+        token_string = replace_NSWs(token_string)
+        # except:
+            # token_string = ' '
         w_tag['fulltext'] = token_string
 
     return soup
@@ -228,7 +230,7 @@ def replace_NSWs(token_string):
     sub_tokens = token_string.split()
 
     for i, sub_token in enumerate(sub_tokens):
-        if sub_token.lower() not in list_vietnamese_words:
+        if sub_token.lower() not in vn_words_dict:
             # chuyển từ mã gồm chuỗi chữ cái và số
             if (i < len(sub_tokens)-1) and re.match(r'^({})+$'.format(lseq_charset), sub_tokens[i].upper()) \
                     and re.match(r'\d+', sub_tokens[i+1]):
@@ -239,18 +241,21 @@ def replace_NSWs(token_string):
             elif len(sub_token) == 1 and sub_token.upper() in LSEQ_DICT.keys():
                 # nếu chỉ một chữ cái riêng biệt
                 sub_token = LSEQ2words(sub_token)
-
-            elif LWRD2words(sub_token.lower()):
-                # nếu có trong tiếng anh
-                sub_token = LWRD2words(sub_token.lower())
             elif sub_token in ABB_DICT:
                 # chuyển từ viết tắt
                 sub_token = re.sub('(?P<id>({})+)'.format(lseq_charset),
                                    lambda x: LABB2words(x.group('id')), sub_token)
-            else:
+            elif sub_token.isupper():
                 # chuyển LSEQ
                 sub_token = re.sub('(?P<id>({})+)'.format(lseq_charset),
-                                   lambda x: LSEQ2words(x.group('id')), sub_token.upper())
+                                lambda x: LSEQ2words(x.group('id')), sub_token.upper()) 
+            elif LWRD2words(sub_token.lower()):
+                # nếu có trong tiếng anh
+                sub_token = LWRD2words(sub_token.lower())
+            elif re.match(r'({})+'.format(charset), sub_token):
+                # thường là tên latin
+                sub_token = latin_name2words(sub_token.lower())
+                print('hehel')
 
             # chuyển số
             sub_token = re.sub(
@@ -297,6 +302,7 @@ def get_text_from_soup(soup):
     text = re.sub(r'(?P<id>{}) {}'.format(split_punc, split_punc), lambda x: x.group('id'), text)
     
     return text
+
 
 
 def normalize(text):

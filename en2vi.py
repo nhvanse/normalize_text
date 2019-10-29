@@ -201,15 +201,15 @@ def en2vi(en_word):
     return result
 
 
-if __name__ == "__main__":
-    """Tạo từ điển phiên âm tiếng Việt cho các từ tiếng Anh"""
-    t0 = time.time()
-    
-    with open(EN2VI_DICT_PATH, 'w') as f:
-        for enword in tqdm(list_enwords):
-            viword = en2vi(enword)
-            if viword:
-                # khác None thì ghi vào file
-                f.write("{}|{}\n".format(enword, viword))
-    
-    print("Time: {} s".format(time.time()-t0))
+
+"""Tạo từ điển phiên âm tiếng Việt cho các từ tiếng Anh"""
+t0 = time.time()
+
+with open(EN2VI_DICT_PATH, 'w') as f:
+    for enword in tqdm(list_enwords):
+        viword = en2vi(enword)
+        if viword:
+            # khác None thì ghi vào file
+            f.write("{}|{}\n".format(enword, viword))
+
+print("Time: {} s".format(time.time()-t0))
