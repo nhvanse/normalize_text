@@ -162,18 +162,18 @@ def add_fulltext_for_tag(tagged_text):
         for w_tag in w_tags:
             tokens.append(w_tag.string)
         token_string = ' '.join(tokens)
-        # try:
-        token_string = replace_NSWs(token_string)
-        # except:
-            # token_string = ' '
+        try:
+            token_string = replace_NSWs(token_string)
+        except:
+            token_string = ' '
         split_tag.attrs['fulltext'] = token_string
 
     for i, w_tag in enumerate(soup.findAll('w')):
         token_string = w_tag.string
-        # try:
-        token_string = replace_NSWs(token_string)
-        # except:
-            # token_string = ' '
+        try:
+            token_string = replace_NSWs(token_string)
+        except:
+            token_string = ' '
         w_tag['fulltext'] = token_string
 
     return soup
@@ -232,6 +232,7 @@ def replace_NSWs(token_string):
     for i, sub_token in enumerate(sub_tokens):
         if sub_token.lower() not in vn_words_dict:
             # chuyển từ mã gồm chuỗi chữ cái và số
+            
             if (i < len(sub_tokens)-1) and re.match(r'^({})+$'.format(lseq_charset), sub_tokens[i].upper()) \
                     and re.match(r'\d+', sub_tokens[i+1]):
                 sub_token = LSEQ2words(sub_tokens[i])
@@ -252,10 +253,9 @@ def replace_NSWs(token_string):
             elif LWRD2words(sub_token.lower()):
                 # nếu có trong tiếng anh
                 sub_token = LWRD2words(sub_token.lower())
-            elif re.match(r'({})+'.format(charset), sub_token):
+            elif re.match(r'({})+'.format('|'.join(charset)), sub_token):
                 # thường là tên latin
                 sub_token = latin_name2words(sub_token.lower())
-                print('hehel')
 
             # chuyển số
             sub_token = re.sub(
@@ -312,9 +312,3 @@ def normalize(text):
     soup = add_fulltext_for_tag(tagged_text)
     normalized_text = get_text_from_soup(soup)
     return normalized_text
-
-t0 = time()
-ex_file = os.path.join(CURDIR, 'vidu.txt')
-text = open(ex_file).read()
-print(normalize(text))
-print(time()-t0)
