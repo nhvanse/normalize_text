@@ -1,6 +1,7 @@
 # encoding: utf-8
 from time import time
 import re
+from bs4 import BeautifulSoup as Soup
 
 from .expand_NSWs import *
 
@@ -14,19 +15,15 @@ lseq_charset = '|'.join(LSEQ_DICT)
 f = open(VI_WORDS_PATH, 'r', encoding='utf-8')
 list_vietnamese_words = f.read().split('\n')
 
-classes = ['NTIM', 'NDAT', 'NDAY', 'NMON', 'NNUM', 'NTEL', 'NDIG', 'NSCR', 'NRNG', 'NPER', 'NFRC', 'NADD',
-               'LWRD', 'LSEQ', 'LABB',
-               'PUNC', 'URLE', 'MONY', 'CSEQ', 'DURA', 'NONE'
-    ]
 
 def split_token(text):
     """
         Tách token từ text, trả về mảng các token.
     """
     # chuyển \n thành chấm nếu cuối câu không chấm
-    text = re.sub(r'\n', ' .', text)
-    text = re.sub(r'(\s*)(\.|\,|\…|\;)(\s*)\.', ' .', text)
-    text = re.sub(r'(\s*)(\.|\,|\…|\;)(\s*)\.', ' .', text)
+    text = re.sub(r'\n', '.', text)
+    text = re.sub(r'\.\.\.|\.\.|\. \.', '.', text)
+    text = re.sub(r'\.\.\.|\.\.|\. \.', '.', text)
 
     # tách token
     list_tokens = text.split()
@@ -108,12 +105,33 @@ def split_token(text):
 
     return list_tokens
 
-
-
-def split_compound_NSWs(list_tokens):
-    for i, token in enumerate(list_tokens):
-        # nếu token là NSW
+def filter_candidate_NSWs(list_tokens):
+    """gán thẻ w cho các token là NSW"""
+    result = []
+    for token in list_tokens:
         if token.lower() not in vn_words_dict:
+            # token là NSW
+            token = '<w>'+token+'</w>'
+        else:
+            token = token.lower()
+
+        result.append(token)
+    return ' '.join(result)
+
+
+def split_compound_NSWs(text):
+    """
+        Tách các NSW phức tạp cho vào thẻ split\n
+        `vào lúc 10h30` => `vào lúc <split><w>10</w><w>h</w><w>30</w>`
+    """
+    tokens = text.split()
+    for i, token in enumerate(tokens):
+        # nếu token trong thẻ w
+        if re.match(r'^<w>(\w|\d|{})+</w>$'.format(punc), token):
+            # lấy token từ thẻ w
+            token = re.sub(
+                r'^<w>(?P<id>(\w|\d|{})+)</w>$'.format(punc), lambda x: x.group('id'), token)
+
             # nếu là email hoặc url thì bỏ qua
             if re.match(email_regex, token) or re.match(url_regex, token):
                 continue
@@ -129,168 +147,171 @@ def split_compound_NSWs(list_tokens):
                 token = re.sub(r'(?P<id>(\d[{}]))'.format(charset),
                                lambda x: x.group('id')[0]+' '+x.group('id')[1], token)
                 
-                token = ' '.join(token.split())
-                list_tokens[i] = token
+                # thêm thẻ split
+                new_token = ''
+                for j, sub_token in enumerate(token.split()):
+                    new_token += '<sub>' + sub_token + '</sub>'
+                tokens[i] = '<split>' + new_token + '</split>'
 
-    return ' '.join(list_tokens)
+    return ' '.join(tokens)
 
-def replace(text):
-    '''Chuyển text đã tách token về dạng chuẩn hóa cho tiếng Việt'''
-    # dict đếm số lần xuất hiện của các nhóm NSWs
-    nswcounter = dict.fromkeys(classes, 0)
 
+def add_fulltext_for_tag(tagged_text):
+    soup = Soup(tagged_text, 'lxml')
+    # xét thẻ split
+    for split_tag in soup.findAll('split'):
+        w_tags = split_tag.children
+        tokens = []
+        for w_tag in w_tags:
+            tokens.append(w_tag.string)
+        token_string = ' '.join(tokens)
+        try:
+            token_string = replace_NSWs(token_string)
+        except:
+            token_string = ' '
+        split_tag.attrs['fulltext'] = token_string
+
+    for i, w_tag in enumerate(soup.findAll('w')):
+        token_string = w_tag.string
+        try:
+            token_string = replace_NSWs(token_string)
+        except:
+            token_string = ' '
+        w_tag['fulltext'] = token_string
+
+    return soup
+
+
+def replace_NSWs(token_string):
     # chuyển urle
-    text, count = re.subn(r'(?P<id>{}|{})'.format(email_regex, url_regex),
-                          lambda x: URLE2words(x.group('id')), text)
-    nswcounter['URLE'] += count
-    
+    token_string = re.sub(r'(?P<id>{}|{})'.format(email_regex, url_regex),
+                          lambda x: URLE2words(x.group('id')), token_string)
     # chuyển ngày/tháng/năm
-    text, count = re.subn(r'(?P<id>(^| )((0)?[1-9]|[1-2][0-9]|(3)[0-1])( |)(\/)( |)(((0)?[0-9])|((1)[0-2]))( |)(\/)( |)(\d{4}|\d{2})( |$))',
-                          lambda x: ' ' + NDAT2words(''.join(x.group('id').split())) + ' ', text)
-    nswcounter['NDAT'] += count
-    
+    token_string = re.sub(r'(?P<id>(^| )((0)?[1-9]|[1-2][0-9]|(3)[0-1])( |)(\/)( |)(((0)?[0-9])|((1)[0-2]))( |)(\/)( |)(\d{4}|\d{2})( |$))',
+                          lambda x: ' ' + NDAT2words(''.join(x.group('id').split())) + ' ', token_string)
     # chuyển ngày/tháng
-    text, count = re.subn(r'(?P<id>(^| )((0)?[1-9]|[1-2][0-9]|(3)[0-1])( |)(\/)( |)(((0)?[0-9])|((1)[0-2]))( |$))',
-                          lambda x: ' ' + NDAY2words(''.join(x.group('id').split())) + ' ', text)
-    nswcounter['NDAY'] += count
-    
+    token_string = re.sub(r'(?P<id>(^| )((0)?[1-9]|[1-2][0-9]|(3)[0-1])( |)(\/)( |)(((0)?[0-9])|((1)[0-2]))( |$))',
+                          lambda x: ' ' + NDAY2words(''.join(x.group('id').split())) + ' ', token_string)
     # chuyển tháng/năm
-    text, count = re.subn(r'(?P<id>(^| )(((0)?[0-9])|((1)[0-2]))( |)(\/)( |)(\d{4}|\d{2})( |$))',
-                          lambda x: ' ' + NMONT2words(''.join(x.group('id').split())) + ' ', text)
-    nswcounter['NMON'] += count
-    
+    token_string = re.sub(r'(?P<id>(^| )(((0)?[0-9])|((1)[0-2]))( |)(\/)( |)(\d{4}|\d{2})( |$))',
+                          lambda x: ' ' + NMONT2words(''.join(x.group('id').split())) + ' ', token_string)
     # chuyển số kèm đơn vị
-    text, count = re.subn(r'(?P<id>(\d+\.)*\d+(\,\d+| \, \d+)?) (?P<id1>{})(?P<id2> |$)'.format(unitlist),
+    token_string = re.sub(r'(?P<id>(\d+\.)*\d+(\,\d+| \, \d+)?) (?P<id1>{})(?P<id2> |$)'.format(unitlist),
                           lambda x: NNUM2words(''.join(x.group('id').split(
                           ))) + ' ' + UNIT_DICT[x.group('id1')] + x.group('id2'),
-                          text)
-    nswcounter['NNUM'] += count
-    nswcounter['LABB'] += count
-    
+                          token_string)
     # chuyển tiền tệ
-    text, count = re.subn(r'(?P<id>(\d+ \. )*\d+( \, \d+)? ({}))( |$)'.format(currency_list),
+    token_string = re.sub(r'(?P<id>(\d+ \. )*\d+( \, \d+)? ({}))( |$)'.format(currency_list),
                         lambda x: MONY2words(''.join(x.group('id').split(' '))) + ' ',
-                        text)
-    nswcounter['MONY'] += count
-    
+                        token_string)
     # chuyển giờ
-    text, count = re.subn(r'(?P<id>(((0|1)?[0-9]|(2)[0-3]):([0-5]?[0-9]):([0-5]?[0-9]))|(((0|1)?[0-9]|(2)[0-3]):([0-5]?[0-9])))',
+    token_string = re.sub(r'(?P<id>(((0|1)?[0-9]|(2)[0-3]):([0-5]?[0-9]):([0-5]?[0-9]))|(((0|1)?[0-9]|(2)[0-3]):([0-5]?[0-9])))',
                           lambda x: NTIME2words(x.group('id')),
-                          text)
-    nswcounter['NTIM'] += count                          
-    
+                          token_string)
     # chuyển số điện thoại
-    text, count = re.subn(r'(?P<id> |^)(?P<id1>(0)(\d|\.){9,14})(?P<id2> |$)',
+    token_string = re.sub(r'(?P<id> |^)(?P<id1>(0)(\d|\.){9,14})(?P<id2> |$)',
                           lambda x: x.group(
                               'id') + NTEL2words(x.group('id1')) + x.group('id2'),
-                          text)
-    nswcounter['NTEL'] += count                          
-    
+                          token_string)
     # chuyển phần trăm
-    text, count = re.subn(r'(?P<id>( |^)\d+(\,\d+| \, \d+)?(( |)\-( |)\d+(\,\d+| \, \d+)?)?(%| %)( |$))',
+    token_string = re.sub(r'(?P<id>( |^)\d+(\,\d+| \, \d+)?(( |)\-( |)\d+(\,\d+| \, \d+)?)?(%| %)( |$))',
                           lambda x: ' ' +
                           NPER2words(''.join(x.group('id').split())) + ' ',
-                          text)
-    nswcounter['NPER'] += count
-    
+                          token_string)
     # chuyển range
-    text, count = re.subn(r'(?P<id>( |^)\d+(\,\d+| \, \d+)?( |)\-( |)\d+(\,\d+| \, \d+)?( |$))',
-                          lambda x: ' ' + NRNG2words(''.join(x.group('id').split())) + ' ',
-                          text)
-    nswcounter['NRNG'] += count
-    
+    token_string = re.sub(r'(?P<id>( |^)\d+(\,\d+| \, \d+)?( |)\-( |)\d+(\,\d+| \, \d+)?( |$))',
+                          lambda x: NRNG2words(''.join(x.group('id').split())),
+                          token_string)
     # chuyển phân số
-    text, count = re.subn(r'(?:^| )(?P<id>\d+( |)\/( |)\d+)(?: |$)',
-                          lambda x: NFRC2words(''.join(x.group('id').split())), text)
-    nswcounter['NFRC'] += count
-    
+    token_string = re.sub(r'(?:^| )(?P<id>\d+( |)\/( |)\d+)(?: |$)',
+                          lambda x: NFRC2words(''.join(x.group('id').split())), token_string)
     # nếu hai từ nối nhau bởi dấu - thì chuyển dấu trừ thành khoảng trắng
-    text, count = re.subn(r'(?P<id>[{}]+) \- (?P<id1>[{}]+)'.format(
-        charset, charset), lambda x: x.group('id') + ' '+x.group('id1'), text)
-    nswcounter['PUNC'] += count
-
-    
+    token_string = re.sub(r'(?P<id>[{}]+) \- (?P<id1>[{}]+)'.format(
+        charset, charset), lambda x: x.group('id') + ' '+x.group('id1'), token_string)
 
     # chuyển các trường hợp khác
-    sub_tokens = text.split()
+    sub_tokens = token_string.split()
 
     for i, sub_token in enumerate(sub_tokens):
         if sub_token.lower() not in vn_words_dict:
             # chuyển từ mã gồm chuỗi chữ cái và số
+            
             if (i < len(sub_tokens)-1) and re.match(r'^({})+$'.format(lseq_charset), sub_tokens[i].upper()) \
                     and re.match(r'\d+', sub_tokens[i+1]):
                 sub_token = LSEQ2words(sub_tokens[i])
                 sub_tokens[i] = sub_token + ' ' + NDIG2words(sub_tokens[i+1])
                 sub_tokens[i+1] = ''
-                nswcounter['LSEQ'] += 1
-                nswcounter['NDIG'] += 1
                 continue
             elif len(sub_token) == 1 and sub_token.upper() in LSEQ_DICT.keys():
                 # nếu chỉ một chữ cái riêng biệt
                 sub_token = LSEQ2words(sub_token)
-                nswcounter['LSEQ'] += count
             elif sub_token in ABB_DICT:
                 # chuyển từ viết tắt
-                sub_token, count = re.subn('(?P<id>({})+)'.format(lseq_charset),
+                sub_token = re.sub('(?P<id>({})+)'.format(lseq_charset),
                                    lambda x: LABB2words(x.group('id')), sub_token)
-                nswcounter['LABB'] += count
             elif sub_token.isupper():
                 # chuyển LSEQ
-                sub_token, count = re.subn('(?P<id>({})+)'.format(lseq_charset),
+                sub_token = re.sub('(?P<id>({})+)'.format(lseq_charset),
                                 lambda x: LSEQ2words(x.group('id')), sub_token.upper()) 
-                nswcounter['LSEQ'] += count
             elif LWRD2words(sub_token.lower()):
                 # nếu có trong tiếng anh
                 sub_token = LWRD2words(sub_token.lower())
-                nswcounter['LWRD'] += 1
             elif re.match(r'({})+'.format('|'.join(charset)), sub_token):
                 # thường là tên latin
                 sub_token = latin_name2words(sub_token.lower())
-                nswcounter['LWRD'] += 1
 
             # chuyển số
-            sub_token, count = re.subn(
+            sub_token = re.sub(
                 r'(?P<id>(\d+\.)*\d+(\,\d+)?)', lambda x: NNUM2words(''.join(x.group('id').split('.')))+' ', sub_token)
-            nswcounter['NNUM'] += count
             # chuyển punctuation
-            # đọc một số punctuation
-            sub_token, count = re.subn(r'(?P<id>{})'.format(r'\/'),
+            sub_token = re.sub(r'(?P<id>{})'.format(punc),
                                lambda x: ' ' + PUNC2words(x.group('id')) + ' ', sub_token)
-            nswcounter['PUNC'] += count
-
-            # bỏ một số punctuation không đọc
-            sub_token, count = re.subn(r'(?P<id>{})'.format(r'\(|\)|\'|\"|\“|\”|\:|\-|\+|\*|\\|\_|\&|\%|\^|\[|\]|\{|\}|\=|\#|\@|\`|\~|\$'),
-                               lambda x: '', sub_token)
-            nswcounter['PUNC'] += count
-
-            # giữ lại các dấu ngắt nghỉ
-            sub_token, count = re.subn(r'(?P<id>{})'.format('\.|\,|\;|\?|\!|\…'),
-                               lambda x: x.group('id'), sub_token)
-            nswcounter['DURA'] += count
-
-            # loại bỏ các thành phần không đọc được như các icon,...
-            sub_token, count = re.subn(r'(?P<id>[^({})])'.format('|'.join(charset) + '|\.|\,|\;|\?|\!|\…'),
-                               lambda x: ' ', sub_token)
         else:
             sub_token = sub_token.lower()
 
         sub_tokens[i] = sub_token
 
-    text = ' '.join(sub_tokens)
-    normalized_text = ' '.join(text.split())
+    token_string = ' '.join(sub_tokens)
 
-    return normalized_text, nswcounter
+    return token_string
 
-def count_NSWs(text):
-    list_tokens = split_token(text)
-    text = split_compound_NSWs(list_tokens)
-    normalized_text, nswcounter = replace(text)
 
-    return nswcounter
+def get_text_from_soup(soup):
+    """Lấy ra text từ đối tượng BeautifulSoup chứa các thẻ"""
+    split_tags = soup.findAll('split')
+    # xóa các thẻ w trong thẻ split (chỉ lấy fulltext của thẻ split)
+    for split_tag in split_tags:
+        sub_w_tags = split_tag.findAll('w')
+        for sub_w_tag in sub_w_tags:
+            sub_w_tag.extract()
+        split_tag.string = ''
+
+    # thay thế các thẻ bằng full text
+    # để lại một số punctuation
+    tags = soup.findAll(['split', 'w'])
+    for tag in tags:
+        if tag.string in ['.', ',', '?', ';', '!', '…']:
+            pass
+        elif re.match(r'{}'.format(punc), tag.string):
+
+            tag.string.replace_with('')
+        else:
+            tag.string.replace_with(tag['fulltext'])
+
+    text = ''.join(soup.strings)
+    text = ' '.join(text.split())
+    # xóa bớt các dấu câu liền nhau
+    split_punc = '\.|\,|\;|\/|\(|\)|\!|\?|\…'
+    text = re.sub(r'(?P<id>{}) {}'.format(split_punc, split_punc), lambda x: x.group('id'), text)
+    
+    return text
+
+
 
 def normalize(text):
     list_tokens = split_token(text)
-    text = split_compound_NSWs(list_tokens)
-    normalized_text, nswcounter = replace(text)
-
+    tagged_text = filter_candidate_NSWs(list_tokens)
+    tagged_text = split_compound_NSWs(tagged_text)
+    soup = add_fulltext_for_tag(tagged_text)
+    normalized_text = get_text_from_soup(soup)
     return normalized_text
