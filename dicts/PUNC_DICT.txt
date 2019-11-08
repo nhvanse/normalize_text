@@ -6,7 +6,6 @@
 )|đóng ngoặc
 ?|chấm hỏi
 :|hai chấm
-...|ba chấm
 /|xẹc
 '|nháy đơn
 "|nháy kép

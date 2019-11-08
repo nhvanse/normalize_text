@@ -50,7 +50,8 @@ def decimal2words(number):
     return numberstring
 
 def NNUM2words(num_string):
-    arr = str(num_string).split(',')
+    num_string = re.sub(r'\.', '', str(num_string))
+    arr = num_string.split(',')
     if len(arr) == 1:
         # số tự nhiên 
         return decimal2words(float(num_string))
@@ -65,7 +66,8 @@ def NDIG2words(dig_string):
     "3925"
     result = ''
     for digit in dig_string:
-        result += num2words(int(digit), lang='vi') + ' '
+        if digit.isdigit():
+            result += num2words(int(digit), lang='vi') + ' '
 
     return result
 
@@ -239,12 +241,15 @@ def PUNC2words(punc_string):
 
 def URLE2words(urle_string):
     """đọc đường link và email"""
+    urle_string = urle_string.lower()
+    urle_string = re.sub(r'\.$', '', urle_string)
+    urle_string = re.sub(r'^http', 'hát tê tê pê ', urle_string)
     urle_string = re.sub(r'.com', ' chấm com ', urle_string)
     urle_string = re.sub(r'.edu', ' chấm e đu ', urle_string)
     urle_string = re.sub(r'gmail', ' gờ meo ', urle_string)
     urle_string = re.sub(r'outlook', ' ao lúc ', urle_string)
     urle_string = re.sub(r'@', ' a còng ', urle_string)
-    urle_string = re.sub(r'(?P<id>{})'.format('\.|\,|\:|\/'), lambda x: ' ' + PUNC2words(x.group('id'))+ ' ', urle_string)
+    urle_string = re.sub(r'(?P<id>{})'.format("\\" + '|\\'.join(PUNC_DICT.keys())), lambda x: ' ' + PUNC2words(x.group('id'))+ ' ', urle_string)
     urle_string = re.sub(r'(?P<id>\d)', lambda x: ' ' + NNUM2words(x.group('id'))+ ' ', urle_string)
     arr = urle_string.split()
     for i, word in enumerate(arr):
@@ -253,8 +258,32 @@ def URLE2words(urle_string):
             if LWRD2words(word):
                 arr[i] = LWRD2words(word)
             else:
-                arr[i] = LSEQ2words(word)
-
+                k = 0
+                newtoken = ''
+                while k < len(word):
+                    # so khớp từ dài đến ngắn  xem có từ nào đọc được tiếng Việt không
+                    for j in [5,4,3,2,1]:
+                        if k+j<= len(word):
+                            if word[k:k+j] in vn_words_dict:
+                                newtoken += word[k:k+j] + ' '
+                                k = k+j
+                                break
+                            elif j>2 and LWRD2words(word[k:k+j]):
+                                # nếu có trong tiếng anh thì đọc kiểu tiếng anh
+                                newtoken += LWRD2words(word[k:k+j]) + ' '
+                                k = k+j
+                                break
+                            elif j==1 and word[k] != ' ':
+                                # nếu có 1 chữ cái thì đọc từng chữ
+                                newtoken += LSEQ2words(word[k]) + ' '
+                                k+=1
+                                break
+                            elif j==1 and word[k] == ' ':
+                                #kí tự cách
+                                newtoken += ' '
+                                k+=1
+                arr[i] = newtoken
+  
     result = ' '.join(arr)
     return result
 
