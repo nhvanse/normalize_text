@@ -6,3 +6,4 @@
 -update: (30/10/2019) đọc theo kiểu việt hóa cho các người latin không có trong tiếng anh.<br>
 -update: (3/11/2019) refactor code và thêm phần countNSWs.
 -update: (8/11/2019) đọc email, url tự nhiên hơn, sửa lỗi về đọc số thập phân, thử test với 4GB dữ liệu
+-update: (9/11/2019) sửa lỗi khi đọc số lớn, sửa lỗi đọc LSEQ mà không có trong từ điển
