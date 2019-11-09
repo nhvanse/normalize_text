@@ -24,7 +24,7 @@ def split_token(text):
         Tách token từ text, trả về mảng các token.
     """
     # chuyển \n thành chấm nếu cuối câu không chấm
-    text = re.sub(r'\n', ' .', text)
+    text = re.sub(r'\n', ' . ', text)
     text = re.sub(r'(\s*)(\.|\,|\…|\;)(\s*)\.', ' .', text)
     text = re.sub(r'(\s*)(\.|\,|\…|\;)(\s*)\.', ' .', text)
 

@@ -32,32 +32,58 @@ f.close()
 
 currency_list = '\$|S \$|VNĐ'
 
-def decimal2words(number):
-    # đọc năm
-    numberstring = ""
-    number = int(number)
-    if number <= 1000 or number % 1000 == 0:
-        numberstring = num2words(number, lang='vi')
-    else:
-        numberstring = num2words(number//100*100, lang='vi')
-        if ((number//100) % 10 == 0):
-            numberstring += " không trăm"
-        if number % 100 < 10:
-            numberstring += " lẻ " + num2words(number % 100, lang='vi')
-        else:
-            numberstring += " " + num2words(number % 100, lang='vi')
+# hàm bignumread để xử lý số lớn mà thu viện num2words không xử lý được
 
-    return numberstring
+
+def bignumread(numberstring, index=0):
+    '''đọc số tự nhiên lớn (>10^9), index:độ lớn hàng tỷ cần xét'''
+
+    if len(numberstring) <= 9:
+        return smallnumread(numberstring)
+    else:
+        index += 1
+        big = numberstring[:-9]
+        small = numberstring[-9:]
+        return bignumread(big, index+1) + ' '+'tỷ '*index + ', ' + smallnumread(small)
+
+
+def smallnumread(numberstring):
+    '''đọc số tự nhiên nhỏ có chỉnh sửa từ thư viện num2words'''
+
+    result = ""
+    number = int(numberstring)
+    if number <= 1000 or number % 1000 == 0:
+        result = num2words(number, lang='vi')
+    else:
+        result = num2words(number//100*100, lang='vi')
+        if ((number//100) % 10 == 0):
+            result += " không trăm"
+        if number % 100 < 10:
+            result += " lẻ " + num2words(number % 100, lang='vi')
+        else:
+            result += " " + num2words(number % 100, lang='vi')
+
+    return result
+
+
+def decimal2words(numberstring):
+    """đọc số tự nhiên"""
+    if len(numberstring) <= 9:
+        return smallnumread(numberstring)
+    else:
+        return bignumread(numberstring)
+
 
 def NNUM2words(num_string):
+    """đọc số tự nhiên, có thể có phân tách . và số thập phân"""
     num_string = re.sub(r'\.', '', str(num_string))
     arr = num_string.split(',')
     if len(arr) == 1:
-        # số tự nhiên 
-        return decimal2words(float(num_string))
+        # số tự nhiên
+        return decimal2words(num_string)
     elif len(arr) == 2:
         # số thực có phần thập phân ngăn bởi dấu phẩy
-        return decimal2words(int(arr[0])) + ' phẩy ' + NDIG2words(arr[1])
+        return decimal2words(arr[0]) + ' phẩy ' + NDIG2words(arr[1])
     else:
         return ' '
 
@@ -70,6 +96,7 @@ def NDIG2words(dig_string):
             result += num2words(int(digit), lang='vi') + ' '
 
     return result
+
 
 def NTIME2words(time_string):
     try:
@@ -163,9 +190,9 @@ def NTEL2words(tel_string):
     tel_string = ''.join(tel_string.split('.'))
     result = ''
     result = re.sub('\+', 'cộng ', tel_string)
-    result = re.sub('(?P<id>\d)', lambda x: NNUM2words(x.group('id')) + ' ', result)
+    result = re.sub('(?P<id>\d)', lambda x: NNUM2words(
+        x.group('id')) + ' ', result)
     return result
-
 
 
 def NSCORE2words(score_string):
@@ -218,7 +245,8 @@ def LWRD2words(word):
 def LSEQ2words(seq_string):
     result = ''
     for char in seq_string:
-        result += LSEQ_DICT[char.upper()] + ' '
+        if char.upper() in LSEQ_DICT.keys():
+            result += LSEQ_DICT[char.upper()] + ' '
 
     return result
 
@@ -228,7 +256,7 @@ def LABB2words(abb_string):
     result = ''
     abb_string = abb_string.strip()
     result = ABB_DICT[abb_string].split(',')[0]
-    
+
     return result
 
 
@@ -238,6 +266,7 @@ def PUNC2words(punc_string):
         result = PUNC_DICT[punc_string]
 
     return result
+
 
 def URLE2words(urle_string):
     """đọc đường link và email"""
@@ -249,8 +278,10 @@ def URLE2words(urle_string):
     urle_string = re.sub(r'gmail', ' gờ meo ', urle_string)
     urle_string = re.sub(r'outlook', ' ao lúc ', urle_string)
     urle_string = re.sub(r'@', ' a còng ', urle_string)
-    urle_string = re.sub(r'(?P<id>{})'.format("\\" + '|\\'.join(PUNC_DICT.keys())), lambda x: ' ' + PUNC2words(x.group('id'))+ ' ', urle_string)
-    urle_string = re.sub(r'(?P<id>\d)', lambda x: ' ' + NNUM2words(x.group('id'))+ ' ', urle_string)
+    urle_string = re.sub(r'(?P<id>{})'.format("\\" + '|\\'.join(PUNC_DICT.keys())),
+                         lambda x: ' ' + PUNC2words(x.group('id')) + ' ', urle_string)
+    urle_string = re.sub(r'(?P<id>\d)', lambda x: ' ' +
+                         NNUM2words(x.group('id')) + ' ', urle_string)
     arr = urle_string.split()
     for i, word in enumerate(arr):
         if word not in list_vietnamese_words:
@@ -262,36 +293,39 @@ def URLE2words(urle_string):
                 newtoken = ''
                 while k < len(word):
                     # so khớp từ dài đến ngắn  xem có từ nào đọc được tiếng Việt không
-                    for j in [5,4,3,2,1]:
-                        if k+j<= len(word):
+                    for j in [5, 4, 3, 2, 1]:
+                        if k+j <= len(word):
                             if word[k:k+j] in vn_words_dict:
                                 newtoken += word[k:k+j] + ' '
                                 k = k+j
                                 break
-                            elif j>2 and LWRD2words(word[k:k+j]):
+                            elif j > 2 and LWRD2words(word[k:k+j]):
                                 # nếu có trong tiếng anh thì đọc kiểu tiếng anh
                                 newtoken += LWRD2words(word[k:k+j]) + ' '
                                 k = k+j
                                 break
-                            elif j==1 and word[k] != ' ':
+                            elif j == 1 and word[k] != ' ':
                                 # nếu có 1 chữ cái thì đọc từng chữ
                                 newtoken += LSEQ2words(word[k]) + ' '
-                                k+=1
+                                k += 1
                                 break
-                            elif j==1 and word[k] == ' ':
-                                #kí tự cách
+                            elif j == 1 and word[k] == ' ':
+                                # kí tự cách
                                 newtoken += ' '
-                                k+=1
+                                k += 1
                 arr[i] = newtoken
-  
+
     result = ' '.join(arr)
     return result
 
+
 def MONY2words(money_string):
     # tách đơn vị và số, đọc đơn vị
-    money_string = re.sub(r'(?P<id>\d)(?P<id1>{})'.format(''.join(currency_list.split())), lambda x: x.group('id')+ ' ' + CURRENCY_DICT[x.group('id1')], money_string)
-    # đọc số 
-    money_string = re.sub(r'(?P<id>(\d+\.)*\d+(\,\d+)?)', lambda x: NNUM2words(''.join(x.group('id').split('.'))), money_string)
+    money_string = re.sub(r'(?P<id>\d)(?P<id1>{})'.format(''.join(currency_list.split(
+    ))), lambda x: x.group('id') + ' ' + CURRENCY_DICT[x.group('id1')], money_string)
+    # đọc số
+    money_string = re.sub(r'(?P<id>(\d+\.)*\d+(\,\d+)?)',
+                          lambda x: NNUM2words(''.join(x.group('id').split('.'))), money_string)
     return money_string
 
 
@@ -304,17 +338,19 @@ def latin_name2words(token):
     phones3 = 'a|ă|e|i|o|ơ|ô|u|y'
     phones4 = 'ai|ao|ây|oi|âu|a|ă|e|i|o|ơ|ô|u'
     token = re.sub('(?P<id>{})(?P<id1>({})({}))'.format(phones3, phones2, phones3),
-            lambda x: x.group('id') + ' ' + x.group('id1'), token)
+                   lambda x: x.group('id') + ' ' + x.group('id1'), token)
     token = re.sub('(?P<id>{})(?P<id1>({})({}))'.format(phones3, phones2, phones3),
-            lambda x: x.group('id') + ' ' + x.group('id1'), token)
+                   lambda x: x.group('id') + ' ' + x.group('id1'), token)
     token = re.sub('yl', 'in', token)
-    token = re.sub('(?P<id>da|di|de|du|do)', lambda x: 'đ' + x.group('id')[1] , token)
+    token = re.sub('(?P<id>da|di|de|du|do)',
+                   lambda x: 'đ' + x.group('id')[1], token)
     token = re.sub('j|z', 'd', token)
     token = re.sub('f', 'ph', token)
     token = re.sub(r'd$', 't', token)
-    token = re.sub('(?P<id>ya|ye|yo|yu)', lambda x: 'd' + x.group('id')[1] , token)
-    token = re.sub('(?P<id>ka|ko|ku)', lambda x: 'c' + x.group('id')[1] , token)
-    token = re.sub('(?P<id>ci|ce)', lambda x: 'k' + x.group('id')[1] , token)
+    token = re.sub('(?P<id>ya|ye|yo|yu)', lambda x: 'd' +
+                   x.group('id')[1], token)
+    token = re.sub('(?P<id>ka|ko|ku)', lambda x: 'c' + x.group('id')[1], token)
+    token = re.sub('(?P<id>ci|ce)', lambda x: 'k' + x.group('id')[1], token)
     token = re.sub('al', 'an', token)
     token = re.sub('el', 'eo', token)
     token = re.sub('il', 'iu', token)
@@ -330,11 +366,11 @@ def latin_name2words(token):
     while i < len(token):
         # so khớp từ dài đến ngắn  xem có từ nào không
         # nếu có thì thay thế bởi phiên âm
-        for j in [5,4,3,2,1]:
-            if i+j<= len(token):
-                if j ==1 and token[i] not in ['a', 'e', 'i', 'o', 'u']:
+        for j in [5, 4, 3, 2, 1]:
+            if i+j <= len(token):
+                if j == 1 and token[i] not in ['a', 'e', 'i', 'o', 'u']:
                     # nếu chỉ có 1 chữ cái không phải nguyên âm thì bỏ qua
-                    i+=1
+                    i += 1
                 elif token[i:i+j] in vn_words_dict:
                     newtoken += token[i:i+j] + ' '
                     i = i+j
