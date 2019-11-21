@@ -52,7 +52,7 @@ def smallnumread(numberstring):
 
     result = ""
     number = int(numberstring)
-    if number <= 1000 or number % 1000 == 0:
+    if number <= 1000 or number % 100 == 0:
         result = num2words(number, lang='vi')
     else:
         result = num2words(number//100*100, lang='vi')
@@ -360,6 +360,9 @@ def latin_name2words(token):
     token = re.sub('et', 'ét', token)
     token = re.sub('ic', 'ích', token)
     token = re.sub('sh', 's', token)
+    token = re.sub('ei', 'ây', token)
+    token = re.sub('ee', 'i', token)
+    token = re.sub('w', 'gu', token)
 
     i = 0
     newtoken = ''

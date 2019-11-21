@@ -160,6 +160,11 @@ def replace(text):
     nswcounter['NMON'] += count
     
     # chuyển số kèm đơn vị
+    text, count = re.subn(r'(?P<id1>{}) \/ (?P<id2>{})(?P<id3> |$)'.format(unitlist, unitlist),
+                          lambda x: UNIT_DICT[x.group('id1')] + ' trên ' + UNIT_DICT[x.group('id2')]+ x.group('id3'),
+                          text)
+    nswcounter['LABB'] += count
+
     text, count = re.subn(r'(?P<id>(\d+\.)*\d+(\,\d+| \, \d+)?) (?P<id1>{})(?P<id2> |$)'.format(unitlist),
                           lambda x: NNUM2words(''.join(x.group('id').split(
                           ))) + ' ' + UNIT_DICT[x.group('id1')] + x.group('id2'),
@@ -271,6 +276,7 @@ def replace(text):
             # loại bỏ các thành phần không đọc được như các icon,...
             sub_token, count = re.subn(r'(?P<id>[^({})])'.format('|'.join(charset) + '|\.|\,|\;|\?|\!|\…'),
                                lambda x: ' ', sub_token)
+            nswcounter['NONE'] += count               
         else:
             sub_token = sub_token.lower()
 

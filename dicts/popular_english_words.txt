@@ -95,3 +95,6 @@ coffee|cóp phi
 some|xăm
 about|ơ bao
 fanpage|phan pây
+vbiz|vi bít
+cbiz|xi bít
+kpop|cây pốp
