@@ -7,4 +7,5 @@
 -update: (3/11/2019) refactor code và thêm phần countNSWs.<br>
 -update: (8/11/2019) đọc email, url tự nhiên hơn, sửa lỗi về đọc số thập phân, thử test với 4GB dữ liệu<br>
 -update: (9/11/2019) sửa lỗi khi đọc số lớn, sửa lỗi đọc LSEQ mà không có trong từ điển<br>
--update(21/11/2019): bổ sung tài liệu (file current_document.docx)
+-update(21/11/2019): bổ sung tài liệu (file current_document.docx)<br>
+-update(26/11/2019): fix lỗi đối với văn bản thuộc form NFD, NFKD, đưa về dạng NFKC.<br>
