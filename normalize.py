@@ -1,7 +1,7 @@
 # encoding: utf-8
 from time import time
 import re
-
+import unicodedata
 from .expand_NSWs import *
 
 charset = 'aáảàãạâấẩầẫậăắẳằẵặbcdđeéẻèẽẹêếểềễệfghiíỉìĩịjklmnoóỏòõọôốổồỗộơớởờỡợpqrstuúủùũụưứửừữựvwxyýỷỳỹỵzAÁẢÀÃẠÂẤẨẦẪẬĂẮẲẰẴẶBCDĐEÉẺÈẼẸÊẾỂỀỄỆFGHIÍỈÌĨỊJKLMNOÓỎÒÕỌÔỐỔỒỖỘƠỚỞỜỠỢPQRSTUÚỦÙŨỤƯỨỬỪỮỰVWXYÝỶỲỸỴZ'
@@ -295,6 +295,7 @@ def count_NSWs(text):
     return nswcounter
 
 def normalize(text):
+    text = unicodedata.normalize('NFKC', text)
     list_tokens = split_token(text)
     text = split_compound_NSWs(list_tokens)
     normalized_text, nswcounter = replace(text)
