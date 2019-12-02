@@ -7,6 +7,8 @@ from .expand_NSWs import *
 charset = 'aáảàãạâấẩầẫậăắẳằẵặbcdđeéẻèẽẹêếểềễệfghiíỉìĩịjklmnoóỏòõọôốổồỗộơớởờỡợpqrstuúủùũụưứửừữựvwxyýỷỳỹỵzAÁẢÀÃẠÂẤẨẦẪẬĂẮẲẰẴẶBCDĐEÉẺÈẼẸÊẾỂỀỄỆFGHIÍỈÌĨỊJKLMNOÓỎÒÕỌÔỐỔỒỖỘƠỚỞỜỠỢPQRSTUÚỦÙŨỤƯỨỬỪỮỰVWXYÝỶỲỸỴZ'
 email_regex = r'[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4})+'
 url_regex = r'((?:http(s)?:\/\/)|(www))[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&\'\(\)\*\+,;=.]+'
+short_url = r'([\w.-]+(?:\.[\w\.-]+)+)?[\w\-\._~:/?#[\]@!\$&\'\(\)\*\+,;=.]+(\.(com|gov|vn|com|org|info|io|net|edu))+'
+url_regex += '|' + short_url
 punc = r'\.|\,|\…|\;|\/|\(|\)|\!|\?|\'|\"|\“|\”|\:|\-|\+|\*|\\|\_|\&|\%|\^|\[|\]|\{|\}|\=|\#|\@|\`|\~|\$'
 unitlist = '|'.join(UNIT_DICT.keys())
 lseq_charset = '|'.join(LSEQ_DICT)
@@ -33,6 +35,7 @@ def split_token(text):
     for i, token in enumerate(list_tokens):
         # nếu là email hoặc url thì bỏ qua
         if re.match(email_regex, token) or re.match(url_regex, token):
+            print(token)
             continue
 
         # tách các từ bị dính các dấu .,;/()'"
@@ -264,17 +267,17 @@ def replace(text):
             nswcounter['PUNC'] += count
 
             # bỏ một số punctuation không đọc
-            sub_token, count = re.subn(r'(?P<id>{})'.format(r'\(|\)|\'|\"|\“|\”|\:|\-|\+|\*|\\|\_|\&|\%|\^|\[|\]|\{|\}|\=|\#|\@|\`|\~|\$'),
+            sub_token, count = re.subn(r'(?P<id>{})'.format(r'\(|\)|\'|\"|\“|\”|\-|\+|\*|\\|\_|\&|\%|\^|\[|\]|\{|\}|\=|\#|\@|\`|\~|\$'),
                                lambda x: '', sub_token)
             nswcounter['PUNC'] += count
 
             # giữ lại các dấu ngắt nghỉ
-            sub_token, count = re.subn(r'(?P<id>{})'.format('\.|\,|\;|\?|\!|\…'),
+            sub_token, count = re.subn(r'(?P<id>{})'.format('\.|\,|\;|\?|\!|\…|\:'),
                                lambda x: x.group('id'), sub_token)
             nswcounter['DURA'] += count
 
             # loại bỏ các thành phần không đọc được như các icon,...
-            sub_token, count = re.subn(r'(?P<id>[^({})])'.format('|'.join(charset) + '|\.|\,|\;|\?|\!|\…'),
+            sub_token, count = re.subn(r'(?P<id>[^({})])'.format('|'.join(charset) + '|\.|\,|\;|\?|\!|\…|\:'),
                                lambda x: ' ', sub_token)
             nswcounter['NONE'] += count               
         else:
@@ -295,7 +298,7 @@ def count_NSWs(text):
     return nswcounter
 
 def normalize(text):
-    text = unicodedata.normalize('NFKC', text)
+    # text = unicodedata.normalize('NFKC', text)
     list_tokens = split_token(text)
     text = split_compound_NSWs(list_tokens)
     normalized_text, nswcounter = replace(text)
