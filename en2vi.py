@@ -4,24 +4,17 @@ import os.path
 import time
 from tqdm import tqdm
 
-from .utils import load_dict
+from utils import load_dict
 
 CURDIR = os.path.dirname(__file__)
 
 POPULAR_EN2VI_DICT_PATH = os.path.join(CURDIR,  'dicts/popular_english_words.txt')
 CMUPHONE2VI_DICT_PATH = os.path.join(CURDIR,  'dicts/cmu_phones.txt')
 EN2VI_DICT_PATH = os.path.join(CURDIR,  'dicts/EN2VI_DICT.txt')
-BRANCH_DICT_PATH = os.path.join(CURDIR,  'dicts/proper_name/BRANCH_DICT.txt')
-PERSON_DICT_PATH = os.path.join(CURDIR,  'dicts/proper_name/PERSON_DICT.txt')
 
 
 cmuphone2vi_dict = load_dict(CMUPHONE2VI_DICT_PATH)
 popular_en2vi_dict = load_dict(POPULAR_EN2VI_DICT_PATH)
-popular_branch_dict = load_dict(BRANCH_DICT_PATH)
-popular_person_dict = load_dict(PERSON_DICT_PATH)
-
-popular_en2vi_dict.update(popular_branch_dict)
-popular_en2vi_dict.update(popular_person_dict)
 
 list_enwords = pronouncing.cmudict.words()
 list_enwords.extend(popular_en2vi_dict.keys())
@@ -78,6 +71,7 @@ def convert_by_rules(en_pronounce):
     # tach phần lỗi khi ghép
     temp = re.sub(r'(?P<id>{})(?P<id1>{})'.format(phones1, phones4),
                   lambda x: x.group('id') + " " + x.group('id1'), temp)
+    
 
     # thay đổi âm cuối của từ
     temp = re.sub(r'(?P<id>{})(?P<id1>{})'.format(
@@ -130,11 +124,20 @@ def convert_by_rules(en_pronounce):
     temp = re.sub(r'gu ut|guut', lambda x: 'gút', temp)
     temp = re.sub(r'gu ul|guul', lambda x: 'gun', temp)
     temp = re.sub(r' c gu|^c gu', lambda x: ' qu', temp)
+    temp = re.sub(r'(?P<id>{})(?P<id1>{})'.format(phones3, 'c gu'),
+                  lambda x: x.group('id') + " " + 'qu', temp)
+    temp = re.sub(r'(?P<id>{})\s(?P<id1>{})'.format('qu', phones3),
+                  lambda x: 'qu' + x.group('id1'), temp)
     temp = re.sub(r'ây ng', lambda x: 'ên', temp)
 
     # âm i ơ thành âm iu
     temp = re.sub(r'(?P<id>{})i ơ '.format(phones2),
                   lambda x: x.group('id') + 'iu ', temp)
+    temp = re.sub(r'(?P<id>{})i\s*r '.format(phones2),
+                  lambda x: x.group('id') + 'ia ', temp)
+    temp = re.sub(r'(?P<id>{})\s*du '.format(phones2),
+                  lambda x: x.group('id') + 'iu ', temp)
+
 
     temp = re.sub(r'(?P<id>{})r t '.format(phones3),
                   lambda x: x.group('id')+'t', temp)
@@ -168,11 +171,11 @@ def convert_by_rules(en_pronounce):
                   lambda x: ' ' + x.group('id')+'ờ ', temp)
     temp = re.sub(r' (?P<id>{}) '.format(phones2),
                   lambda x: ' ' + x.group('id')+'ờ ', temp)
-
+    
     # thêm dấu
     add_prosodic_dict = {
         'at':'át', 'ăt':'ắt', 'ât':'ất', 'et':'ét', 'êt':'ết', 'it':'ít', 'ot':'ót', 'ôt':'ốt', 'ơt':'ớt', 'ut':'út', 'ưt':'ứt', 'yt':'ýt',
-        'ac':'ác', 'ăc':'ắc', 'âc':'ấc', 'ec':'éc', 'êc':'ếc', 'ic':'íc', 'oc':'óc', 'ôc':'ốc', 'ơc':'ớc', 'uc':'úc', 'ưc':'ức', 'yc':'ýc',
+        'ac':'ác', 'ăc':'ắc', 'âc':'ấc', 'ec':'éc', 'êc':'ếc', 'ic':'ích', 'oc':'óc', 'ôc':'ốc', 'ơc':'ớc', 'uc':'úc', 'ưc':'ức', 'yc':'ýc',
         'ap':'áp', 'ăp':'ắp', 'âp':'ấp', 'ep':'ép', 'êp':'ếp', 'ip':'íp', 'op':'óp', 'ôp':'ốp', 'ơp':'ớp', 'up':'úp', 'ưp':'ứp', 'yp':'ýp',
         
     }

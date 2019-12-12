@@ -847,6 +847,7 @@ VLTK|võ lâm truyền kỳ
 VLXD|vật liệu xây dựng
 VN|việt nam
 VNCC|tổng công ty xi măng việt nam
+VNĐ|việt nam đồng
 VNM|vinamilk
 VP|văn phòng
 VPCP|văn phòng chính phủ
