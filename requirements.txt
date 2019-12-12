@@ -3,3 +3,4 @@ num2words
 unicodedata
 pronouncing
 tqdm
+unicodedata

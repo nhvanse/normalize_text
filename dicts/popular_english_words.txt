@@ -235,3 +235,6 @@ laden|la đen
 game|ghêm
 games|ghêm
 bettween|bít tuyn
+vbiz|vi bít
+cbiz|xi bít
+kpop|cây pốp

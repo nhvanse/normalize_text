@@ -15,7 +15,6 @@ def replace_nsw(expanded_dic, list_tokens):
     list_words = ' '.join(list_tokens).split()
     normalized_text =  ' '.join(list_words).lower()
 
-    return normalized_text
 
 def normalise(text):
     list_tokens = split_tokens(text)
@@ -25,7 +24,6 @@ def normalise(text):
     expanded_dic = expand(classified_dic, list_tokens)
     normalized_text = replace_nsw(expanded_dic, list_tokens)
     return normalized_text
-
 
 # text = open('./vidu.txt').read()
 # print(normalise(text))
