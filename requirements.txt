@@ -1,5 +1,5 @@
+re
 num2words
-beautifulsoup4
-lxml
+unicodedata
 pronouncing
 tqdm

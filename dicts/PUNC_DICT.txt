@@ -6,7 +6,7 @@
 )|đóng ngoặc
 ?|chấm hỏi
 :|hai chấm
-/|xẹc
+/|trên
 '|nháy đơn
 "|nháy kép
 “|nháy kép
@@ -32,3 +32,7 @@ $|đô la
 >|lớn hơn
 =|bằng
 …|ba chấm
+°|độ
+–|trừ
+€|ơ rô
+£|pao
